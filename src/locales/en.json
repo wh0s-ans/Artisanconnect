@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "title": "ArtisanConnect",
+    "findArtisan": "Find an artisan",
+    "seeMissions": "See missions",
+    "mission": "Our Mission",
+    "howItWorks": "How it works",
+    "dashboard": "Dashboard",
+    "requests": "Requests",
+    "projects": "Projects",
+    "publish": "Post a need",
+    "opportunities": "Opportunities",
+    "quotes": "Quotes",
+    "sites": "Sites",
+    "reviews": "Reviews",
+    "stats": "Stats",
+    "admin": "Admin",
+    "messages": "Messages",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "signup": "Sign up",
+    "home": "Home",
+    "concept": "Concept"
+  },
+  "landing": {
+    "hero": {
+      "title1": "Craftsmanship",
+      "title2": "of excellence",
+      "title3": "at your service.",
+      "subtitle": "A rigorous selection of the best local craftsmen to sublimate your life projects. Simple, direct and resolutely qualitative.",
+      "cta": "Start the experience",
+      "explore": "Explore the catalog"
+    },
+    "stats": {
+      "trust": "Trust",
+      "trustValue": "+500 Artisans",
+      "trustDesc": "Certified and recommended",
+      "projects": "Projects",
+      "projectsValue": "2.4k Realizations",
+      "projectsDesc": "Everywhere in France",
+      "satisfaction": "Satisfaction",
+      "satisfactionValue": "4.9 / 5",
+      "satisfactionDesc": "Average review score"
+    },
+    "expertises": {
+      "title": "Our Expertise",
+      "seeAll": "See all",
+      "explore": "Explore",
+      "plumb": "Plumbing",
+      "elec": "Electricity",
+      "paint": "Painting",
+      "masonry": "Masonry",
+      "carpentry": "Carpentry",
+      "gardening": "Gardening"
+    },
+    "howItWorks": {
+      "manifesto": "Manifesto",
+      "quote": "\"We believe that every detail matters, that every brushstroke tells a story, and that every client deserves perfection.\"",
+      "step1Title": "Publish your need",
+      "step1Desc": "Describe your work in a few clicks.",
+      "step2Title": "Receive quotes",
+      "step2Desc": "Local artisans respond to you quickly.",
+      "step3Title": "Choose and repair",
+      "step3Desc": "Read reviews and validate the best artisan."
+    },
+    "cta": {
+      "title1": "Excellence cannot",
+      "title2": "wait.",
+      "title3": "Join us.",
+      "button": "Create an account",
+      "login": "Log in"
+    }
+  }
+}

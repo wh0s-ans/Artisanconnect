@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "title": "ArtisanConnect",
+    "findArtisan": "البحث عن حرفي",
+    "seeMissions": "رؤية المهام",
+    "mission": "مهمتنا",
+    "howItWorks": "كيف تعمل",
+    "dashboard": "لوحة القيادة",
+    "requests": "الطلبات",
+    "projects": "المشاريع",
+    "publish": "نشر حاجة",
+    "opportunities": "الفرص",
+    "quotes": "التسعيرات",
+    "sites": "مواقع البناء",
+    "reviews": "التقييمات",
+    "stats": "إحصائيات",
+    "admin": "المدير",
+    "messages": "الرسائل",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "home": "الرئيسية",
+    "concept": "المفهوم"
+  },
+  "landing": {
+    "hero": {
+      "title1": "حرفية",
+      "title2": "استثنائية",
+      "title3": "في خدمتك.",
+      "subtitle": "اختيار دقيق لأفضل الحرفيين المحليين لإنجاح مشاريعك. بسيط ومباشر وعالي الجودة.",
+      "cta": "ابدأ التجربة",
+      "explore": "اكتشف الكتالوج"
+    },
+    "stats": {
+      "trust": "الثقة",
+      "trustValue": "+500 حرفي",
+      "trustDesc": "معتمدون وموصى بهم",
+      "projects": "المشاريع",
+      "projectsValue": "2.4 ألف إنجاز",
+      "projectsDesc": "في كل مكان",
+      "satisfaction": "الرضا",
+      "satisfactionValue": "4.9 / 5",
+      "satisfactionDesc": "متوسط درجات التقييم"
+    },
+    "expertises": {
+      "title": "خبراتنا",
+      "seeAll": "عرض الكل",
+      "explore": "اكتشف",
+      "plumb": "سباكة",
+      "elec": "كهرباء",
+      "paint": "صباغة",
+      "masonry": "بناء",
+      "carpentry": "نجارة",
+      "gardening": "بستنة"
+    },
+    "howItWorks": {
+      "manifesto": "رسالتنا",
+      "quote": "نحن نؤمن بأن كل تفصيل مهم، وأن كل لمسة فرشاة تروي قصة، وأن كل عميل يستحق الكمال.",
+      "step1Title": "انشر احتياجك",
+      "step1Desc": "صف عملك في بضع نقرات.",
+      "step2Title": "تلقي عروض الأسعار",
+      "step2Desc": "يرد عليك الحرفيون المحليون بسرعة.",
+      "step3Title": "اختر وأصلح",
+      "step3Desc": "اقرأ التقييمات واختر أفضل حرفي."
+    },
+    "cta": {
+      "title1": "التميز لا",
+      "title2": "ينتظر.",
+      "title3": "انضم إلينا.",
+      "button": "إنشاء حساب",
+      "login": "تسجيل الدخول"
+    }
+  }
+}

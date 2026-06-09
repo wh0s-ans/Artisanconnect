@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "title": "ArtisanConnect",
+    "findArtisan": "Trouver un artisan",
+    "seeMissions": "Voir les missions",
+    "mission": "Notre Mission",
+    "howItWorks": "Comment ça marche",
+    "dashboard": "Tableau de bord",
+    "requests": "Demandes",
+    "projects": "Projets",
+    "publish": "Publier un besoin",
+    "opportunities": "Opportunités",
+    "quotes": "Devis",
+    "sites": "Chantiers",
+    "reviews": "Avis",
+    "stats": "Stats",
+    "admin": "Admin",
+    "messages": "Messages",
+    "profile": "Profil",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "home": "Accueil",
+    "concept": "Concept"
+  },
+  "landing": {
+    "hero": {
+      "title1": "L'artisanat",
+      "title2": "d'exception",
+      "title3": "à votre service.",
+      "subtitle": "Une sélection rigoureuse des meilleurs artisans locaux pour sublimer vos projets de vie. Simple, direct et résolument qualitatif.",
+      "cta": "Commencer l'expérience",
+      "explore": "Explorer le catalogue"
+    },
+    "stats": {
+      "trust": "Confiance",
+      "trustValue": "+500 Artisans",
+      "trustDesc": "Certifiés et recommandés",
+      "projects": "Projets",
+      "projectsValue": "2.4k Réalisations",
+      "projectsDesc": "Partout en France",
+      "satisfaction": "Satisfaction",
+      "satisfactionValue": "4.9 / 5",
+      "satisfactionDesc": "Score moyen des avis"
+    },
+    "expertises": {
+      "title": "Nos Expertises",
+      "seeAll": "Voir tout",
+      "explore": "Explorer",
+      "plumb": "Plomberie",
+      "elec": "Électricité",
+      "paint": "Peinture",
+      "masonry": "Maçonnerie",
+      "carpentry": "Menuiserie",
+      "gardening": "Jardinage"
+    },
+    "howItWorks": {
+      "manifesto": "Manifeste",
+      "quote": "\"Nous croyons que chaque détail compte, que chaque trait de pinceau raconte une histoire, et que chaque client mérite la perfection.\"",
+      "step1Title": "Publiez votre besoin",
+      "step1Desc": "Décrivez vos travaux en quelques clics.",
+      "step2Title": "Recevez des devis",
+      "step2Desc": "Les artisans locaux vous répondent rapidement.",
+      "step3Title": "Choisissez et réparez",
+      "step3Desc": "Consultez les avis et validez le meilleur artisan."
+    },
+    "cta": {
+      "title1": "L'excellence n'attend",
+      "title2": "pas.",
+      "title3": "Rejoignez-nous.",
+      "button": "Créer un compte",
+      "login": "Se connecter"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql+asyncpg://artisan:password123@db:5432/artisanconnect
+    depends_on:
+      db:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - artisan-net
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=artisan
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=artisanconnect
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U artisan -d artisanconnect"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - artisan-net
+
+volumes:
+  postgres_data:
+
+networks:
+  artisan-net:
+    driver: bridge

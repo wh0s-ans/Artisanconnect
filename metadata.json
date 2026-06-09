@@ -1,0 +1,9 @@
+{
+  "name": "Remix: Remix: ArtisanConnect2",
+  "description": "app artisan",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}
