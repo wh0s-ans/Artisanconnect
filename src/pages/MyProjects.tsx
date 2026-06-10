@@ -6,8 +6,10 @@ import { Folder, Clock, MapPin, Tag, ChevronRight, CheckCircle2 } from 'lucide-r
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 import { requests as requestsApi } from '../services/api';
+import { useTranslation } from "react-i18next";
 
 export default function MyProjects() {
+    const { t } = useTranslation();
  const { user, userData } = useAuth();
  const [filter, setFilter] = useState('En cours');
   const { data: rawProjects = [], isLoading: loading } = useQuery({
@@ -44,8 +46,8 @@ export default function MyProjects() {
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-12 border-b border-editorial-border pb-8">
  <div>
- <span className="text-sm text-editorial-accent font-semibold mb-4 block ">Mes Chantiers</span>
- <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">Mes Projets</h1>
+ <span className="text-sm text-editorial-accent font-semibold mb-4 block ">{t('auto.mes-chantiers')}</span>
+ <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">{t('auto.mes-projets')}</h1>
  </div>
  </div>
 
@@ -89,8 +91,8 @@ export default function MyProjects() {
  <div className="mx-auto w-16 h-16 bg-secondary/30 rounded-full flex items-center justify-center mb-6">
  <Folder className="h-8 w-8 text-editorial-muted opacity-50" />
  </div>
- <p className="text-editorial-fg font-semibold mb-2">Aucun projet</p>
- <p className="text-editorial-muted text-sm">Vous n'avez pas de projet correspondant à ce filtre pour le moment.</p>
+ <p className="text-editorial-fg font-semibold mb-2">{t('auto.aucun-projet')}</p>
+ <p className="text-editorial-muted text-sm">{t('auto.vous-navez-pas-de-projet-corre')}</p>
  </div>
  ) : (
  <div className="flex flex-col gap-4 sm:grid sm:gap-px sm:bg-editorial-border sm:border sm:border-editorial-border rounded-xl sm:overflow-hidden">
@@ -116,7 +118,7 @@ export default function MyProjects() {
  <h3 className="text-xl lg:text-3xl font-medium text-editorial-fg group-hover:text-editorial-accent transition-colors leading-snug">
  {project.title}
  </h3>
- <p className="text-sm text-editorial-muted mt-2">Budget initial: {project.budget} €</p>
+ <p className="text-sm text-editorial-muted mt-2">{t('auto.budget-initial')} {project.budget} €</p>
  </div>
  <div className="text-left sm:text-right mt-2 sm:mt-0">
  <div className="text-xl lg:text-2xl font-medium text-editorial-fg">
@@ -128,7 +130,7 @@ export default function MyProjects() {
  {project.status === 'in_progress' && (
  <div className="mb-6">
  <div className="flex justify-between text-sm font-bold text-editorial-muted mb-2">
- <span>Avancement</span>
+ <span>{t('auto.avancement')}</span>
  <span>{project.progress || 10}%</span>
  </div>
  <div className="w-full bg-secondary/20 h-1.5 overflow-hidden">
@@ -154,7 +156,8 @@ export default function MyProjects() {
  </div>
  {project.status === 'in_progress' && (
  <span className="text-sm text-editorial-accent font-semibold transition-transform inline-flex items-center gap-2 self-start sm:self-auto group-hover:translate-x-2">
- Gérer le projet <ChevronRight className="h-3 w-3" />
+ 
+                          {t('auto.gerer-le-projet')} <ChevronRight className="h-3 w-3" />
  </span>
  )}
  </div>

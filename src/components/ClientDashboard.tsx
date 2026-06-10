@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Clock, MapPin, Tag, ChevronRight, MessageSquare, PlusCircle, AlertCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
+import { useTranslation } from "react-i18next";
 
 interface ServiceRequest {
  id: string;
@@ -19,6 +20,7 @@ interface ServiceRequest {
 }
 
 export default function ClientDashboard() {
+    const { t } = useTranslation();
  const { user } = useAuth();
  const { isMobile, isTablet } = useDeviceType();
  const [requests, setRequests] = useState<ServiceRequest[]>([]);
@@ -47,17 +49,18 @@ export default function ClientDashboard() {
  <div className="space-y-8 lg:space-y-12">
  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 lg:gap-8 pb-8 lg:pb-12 border-b border-editorial-border px-4 lg:px-0 mt-4 lg:mt-0">
  <div>
- <span className="text-sm text-editorial-accent font-semibold mb-3 lg:mb-4 block ">Espace Client</span>
- <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">Tableau de bord</h1>
- <p className="mt-3 lg:mt-4 text-sm lg:text-base text-editorial-muted ">Gérez vos demandes et sélectionnez l'excellence.</p>
+ <span className="text-sm text-editorial-accent font-semibold mb-3 lg:mb-4 block ">{t('auto.espace-client')}</span>
+ <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">{t('auto.tableau-de-bord')}</h1>
+ <p className="mt-3 lg:mt-4 text-sm lg:text-base text-editorial-muted ">{t('auto.gerez-vos-demandes-et-selectio')}</p>
  </div>
  <Link 
  to="/requests/new" 
  className="w-full sm:w-auto flex items-center justify-center gap-4 bg-editorial-accent hover:bg-editorial-accent/90 text-white px-6 lg:px-8 py-4 text-xs font-semibold hover:opacity-90 transition-all shadow-xl shadow-editorial-accent/10"
  >
  <PlusCircle className="h-4 w-4" />
- Publier un besoin
- </Link>
+ 
+                  {t('auto.publier-un-besoin')}
+                  </Link>
  </div>
 
  <div className={cn(
@@ -68,14 +71,14 @@ export default function ClientDashboard() {
     initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
     className="bg-secondary/20 border border-editorial-border rounded-lg shadow-sm p-4 sm:p-6 lg:p-8 flex flex-col items-center sm:items-start justify-center"
   >
-    <span className="text-xs sm:text-sm font-medium text-editorial-muted mb-2 text-center sm:text-left">Demandes Actives</span>
+    <span className="text-xs sm:text-sm font-medium text-editorial-muted mb-2 text-center sm:text-left">{t('auto.demandes-actives')}</span>
     <span className="text-3xl sm:text-4xl font-medium text-editorial-fg">{activeRequestsCount}</span>
   </motion.div>
   <motion.div 
     initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
     className="bg-secondary/5 border border-editorial-border rounded-lg shadow-sm p-4 sm:p-6 lg:p-8 flex flex-col items-center sm:items-start justify-center"
   >
-    <span className="text-xs sm:text-sm font-medium text-editorial-muted mb-2 text-center sm:text-left">Projets Clôturés</span>
+    <span className="text-xs sm:text-sm font-medium text-editorial-muted mb-2 text-center sm:text-left">{t('auto.projets-clotures')}</span>
     <span className="text-3xl sm:text-4xl font-medium text-editorial-fg">{completedRequestsCount}</span>
   </motion.div>
  </div>
@@ -85,8 +88,9 @@ export default function ClientDashboard() {
  <div className="md:col-span-8 space-y-8 lg:space-y-12">
  <h2 className="text-sm text-editorial-muted font-bold flex items-center gap-4">
  <Clock className="h-4 w-4 text-editorial-accent" />
- Demandes en cours d'étude
- </h2>
+ 
+                      {t('auto.demandes-en-cours-detude')}
+                      </h2>
 
  {loading ? (
  <div className="space-y-4 lg:space-y-8">
@@ -97,10 +101,11 @@ export default function ClientDashboard() {
  <div className="h-16 w-16 bg-editorial-bg border border-editorial-border rounded-lg shadow-sm flex items-center justify-center mx-auto mb-8">
  <Tag className="h-6 w-6 text-editorial-muted" />
  </div>
- <p className="text-editorial-fg text-xl lg:text-2xl mb-6">Votre portfolio de projets est vide.</p>
+ <p className="text-editorial-fg text-xl lg:text-2xl mb-6">{t('auto.votre-portfolio-de-projets-est')}</p>
  <Link to="/requests/new" className="text-editorial-accent text-sm font-bold border-b border-editorial-accent pb-1">
- Lancer un nouvel appel d'offres
- </Link>
+ 
+                                  {t('auto.lancer-un-nouvel-appel-doffres')}
+                                  </Link>
  </div>
  ) : (
  <div className="flex flex-col gap-4 sm:grid sm:gap-px sm:bg-editorial-border sm:border sm:border-editorial-border rounded-lg sm:overflow-hidden">
@@ -144,7 +149,8 @@ export default function ClientDashboard() {
  {request.category}
  </div>
  <div className="flex items-center gap-2 ml-auto text-editorial-fg font-medium">
- Est. {request.budget ? `${request.budget} €` : 'Sur devis'}
+ 
+                      {t('auto.est')} {request.budget ? `${request.budget} €` : 'Sur devis'}
  </div>
  </div>
  </Link>
@@ -157,10 +163,11 @@ export default function ClientDashboard() {
  {/* Sidebar info / Stats */}
  <div className="md:col-span-4 space-y-8 lg:space-y-12">
  <div className="bg-editorial-accent hover:bg-editorial-accent/90 p-6 lg:p-10 text-white shadow-xl rounded-lg">
- <span className="text-sm lg:text-sm font-semibold mb-4 lg:mb-6 block border-b border-editorial-bg/20 pb-2">Vade-mecum</span>
+ <span className="text-sm lg:text-sm font-semibold mb-4 lg:mb-6 block border-b border-editorial-bg/20 pb-2">{t('auto.vade-mecum')}</span>
  <p className="text-lg lg:text-2xl font-semibold leading-relaxed ">
- "Privilégiez la précision descriptive : la qualité des propositions d'artisans en dépend directement."
- </p>
+ 
+                          {t('auto.privilegiez-la-precision-descr')}
+                          </p>
  </div>
  </div>
  </div>

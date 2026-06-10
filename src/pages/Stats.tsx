@@ -3,8 +3,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { TrendingUp, Users, Euro, CheckCircle2 } from 'lucide-react';
 import { requests as requestsApi } from '../services/api';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { useTranslation } from "react-i18next";
 
 export default function Stats() {
+    const { t } = useTranslation();
  const { user, userData } = useAuth();
  const [stats, setStats] = useState({ revenue: 0, missions: 0, clients: 0 });
  const [monthlyData, setMonthlyData] = useState<any[]>([]);
@@ -47,8 +49,8 @@ export default function Stats() {
  <div className="min-h-screen bg-editorial-bg py-8">
  <div className="max-w-7xl mx-auto px-4">
  <div className="mb-12 border-b border-editorial-border pb-8">
- <span className="text-sm text-editorial-accent font-semibold mb-4 block">Performances</span>
- <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg">Statistiques</h1>
+ <span className="text-sm text-editorial-accent font-semibold mb-4 block">{t('auto.performances')}</span>
+ <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg">{t('auto.statistiques')}</h1>
  </div>
 
  <div className="grid sm:grid-cols-3 gap-6 mb-12">
@@ -58,7 +60,7 @@ export default function Stats() {
  <Euro className="h-6 w-6" />
  </div>
  </div>
- <div className="text-sm font-semibold text-editorial-muted mb-2">Chiffre d'affaires</div>
+ <div className="text-sm font-semibold text-editorial-muted mb-2">{t('auto.chiffre-daffaires')}</div>
  <div className="text-4xl lg:text-5xl font-medium text-editorial-fg">{stats.revenue} €</div>
  </div>
 
@@ -68,7 +70,7 @@ export default function Stats() {
  <CheckCircle2 className="h-6 w-6" />
  </div>
  </div>
- <div className="text-sm font-semibold mb-2 opacity-90">Missions terminées</div>
+ <div className="text-sm font-semibold mb-2 opacity-90">{t('auto.missions-terminees')}</div>
  <div className="text-4xl lg:text-5xl font-medium">{stats.missions}</div>
  </div>
 
@@ -78,14 +80,14 @@ export default function Stats() {
  <Users className="h-6 w-6" />
  </div>
  </div>
- <div className="text-sm font-semibold text-editorial-muted mb-2">Nouveaux clients</div>
+ <div className="text-sm font-semibold text-editorial-muted mb-2">{t('auto.nouveaux-clients')}</div>
  <div className="text-4xl lg:text-5xl font-medium text-editorial-fg">{stats.clients}</div>
  </div>
  </div>
 
  <div className="grid lg:grid-cols-2 gap-6">
  <div className="bg-white border border-editorial-border rounded-lg shadow-sm p-6 lg:p-8">
- <h3 className="font-semibold mb-8">Évolution du Chiffre d'Affaires</h3>
+ <h3 className="font-semibold mb-8">{t('auto.evolution-du-chiffre-daffaires')}</h3>
  <div className="h-72">
  <ResponsiveContainer width="100%" height="100%">
  <AreaChart data={monthlyData}>
@@ -108,7 +110,7 @@ export default function Stats() {
  </div>
 
  <div className="bg-white border border-editorial-border rounded-lg shadow-sm p-6 lg:p-8">
- <h3 className="font-semibold mb-8">Volume de Missions</h3>
+ <h3 className="font-semibold mb-8">{t('auto.volume-de-missions')}</h3>
  <div className="h-72">
  <ResponsiveContainer width="100%" height="100%">
  <BarChart data={monthlyData}>

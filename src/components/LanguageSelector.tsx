@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Globe } from 'lucide-react';
 
 export default function LanguageSelector() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +39,7 @@ export default function LanguageSelector() {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 transition-colors focus:outline-none"
-        aria-label="Select Language"
+        aria-label={t('auto.select-language')}
       >
         <Globe className="h-5 w-5" />
       </button>
@@ -53,14 +53,16 @@ export default function LanguageSelector() {
               onClick={() => { changeLanguage('fr'); setIsOpen(false); }}
               className={`block w-full text-start px-4 py-2.5 text-sm hover:bg-editorial-accent/10 transition-colors ${i18n.language.startsWith('fr') ? 'font-bold text-editorial-accent' : 'text-editorial-fg'}`}
             >
-              Français
-            </button>
+              
+                                        {t('auto.francais')}
+                                      </button>
             <button
               onClick={() => { changeLanguage('en'); setIsOpen(false); }}
               className={`block w-full text-start px-4 py-2.5 text-sm hover:bg-editorial-accent/10 transition-colors ${i18n.language.startsWith('en') ? 'font-bold text-editorial-accent' : 'text-editorial-fg'}`}
             >
-              English
-            </button>
+              
+                                        {t('auto.english')}
+                                      </button>
             <button
               onClick={() => { changeLanguage('ar'); setIsOpen(false); }}
               className={`block w-full text-start px-4 py-2.5 text-sm hover:bg-editorial-accent/10 transition-colors ${i18n.language.startsWith('ar') ? 'font-bold text-editorial-accent' : 'text-editorial-fg'}`}

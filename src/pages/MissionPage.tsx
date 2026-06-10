@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Shield, Star, Users, Hammer, Heart, Eye } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 export default function MissionPage() {
+    const { t } = useTranslation();
  const values = [
  {
  icon: <Shield className="h-6 w-6" />,
@@ -31,13 +33,15 @@ export default function MissionPage() {
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8 }}
  >
- <span className="text-sm text-editorial-accent font-semibold mb-6 block ">Notre Raison d'Être</span>
+ <span className="text-sm text-editorial-accent font-semibold mb-6 block ">{t('auto.notre-raison-detre')}</span>
  <h1 className="text-4xl sm:text-6xl lg:text-8xl font-semibold text-editorial-fg leading-none mb-8">
- Redéfinir l'art de <br /> <span className="">vivre chez soi.</span>
+ 
+                          {t('auto.redefinir-lart-de')} <br /> <span className="">{t('auto.vivre-chez-soi')}</span>
  </h1>
  <p className="text-editorial-muted text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed ">
- ArtisanConnect est né d'une conviction simple : le beau et le durable ne devraient jamais être un parcours du combattant.
- </p>
+ 
+                          {t('auto.artisanconnect-est-ne-dune-con')}
+                          </p>
  </motion.div>
  </div>
  </section>
@@ -52,23 +56,26 @@ export default function MissionPage() {
  viewport={{ once: true }}
  transition={{ duration: 0.8 }}
  >
- <h2 className="text-3xl lg:text-5xl font-semibold text-editorial-fg mb-12">Le Manifeste de l'Exception</h2>
+ <h2 className="text-3xl lg:text-5xl font-semibold text-editorial-fg mb-12">{t('auto.le-manifeste-de-lexception')}</h2>
  <div className="space-y-8 lg:space-y-12">
  <p className="text-editorial-fg text-lg lg:text-xl leading-relaxed ">
- "Au-delà d'une simple plateforme, nous bâtissons un écosystème où le respect mutuel entre l'artisan et le client est le pillier central."
- </p>
+ 
+                                  {t('auto.au-dela-dune-simple-plateforme')}
+                                  </p>
  <div className="grid sm:grid-cols-2 gap-8">
  <div>
- <h4 className="text-editorial-accent text-sm font-semibold mb-4">Notre Vision</h4>
+ <h4 className="text-editorial-accent text-sm font-semibold mb-4">{t('auto.notre-vision')}</h4>
  <p className="text-editorial-muted text-sm leading-relaxed">
- Devenir la référence mondiale de la mise en relation pour les projets d'exception, alliant technologie et tradition.
- </p>
+ 
+                                          {t('auto.devenir-la-reference-mondiale')}
+                                          </p>
  </div>
  <div>
- <h4 className="text-editorial-accent text-sm font-semibold mb-4">Notre Engagement</h4>
+ <h4 className="text-editorial-accent text-sm font-semibold mb-4">{t('auto.notre-engagement')}</h4>
  <p className="text-editorial-muted text-sm leading-relaxed">
- Transparence totale, rémunération juste pour les artisans et qualité irréprochable pour les clients.
- </p>
+ 
+                                          {t('auto.transparence-totale-remunerati')}
+                                          </p>
  </div>
  </div>
  </div>
@@ -96,7 +103,7 @@ export default function MissionPage() {
  <section className="py-24 lg:py-40">
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <div className="text-center mb-16 lg:mb-32">
- <h2 className="text-2xl lg:text-4xl font-semibold text-editorial-fg">Nos Valeurs Fondatrices</h2>
+ <h2 className="text-2xl lg:text-4xl font-semibold text-editorial-fg">{t('auto.nos-valeurs-fondatrices')}</h2>
  </div>
  <div className="grid md:grid-cols-3 gap-px bg-editorial-border border border-editorial-border rounded-lg shadow-sm overflow-hidden">
  {values.map((val, idx) => (
@@ -123,11 +130,12 @@ export default function MissionPage() {
  <section className="py-24 lg:py-40 bg-editorial-fg text-white rounded-md text-base overflow-hidden relative">
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
  <div className="max-w-3xl">
- <h2 className="text-3xl lg:text-6xl font-semibold mb-12">"Parce que votre intérieur est le reflet de votre âme."</h2>
+ <h2 className="text-3xl lg:text-6xl font-semibold mb-12">{t('auto.parce-que-votre-interieur-est')}</h2>
  <div className="h-px w-24 bg-editorial-accent hover:bg-editorial-accent/90 mb-12" />
  <p className="text-white/60 text-lg lg:text-2xl leading-relaxed ">
- Nous ne nous contentons pas de trouver un artisan. Nous sélectionnons des partenaires qui partagent notre vision de l'excellence et du respect de l'habitat.
- </p>
+ 
+                          {t('auto.nous-ne-nous-contentons-pas-de')}
+                          </p>
  </div>
  </div>
  <Eye className="absolute -right-1/4 -bottom-1/4 h-full w-full text-white opacity-[0.03] rotate-12" />

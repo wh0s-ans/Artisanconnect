@@ -7,10 +7,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useDeviceType } from '../hooks/useDeviceType';
 import type { Message, Chat } from '../services/api';
+import { useTranslation } from "react-i18next";
 
 const POLL_INTERVAL = 3000;
 
 export default function ChatRoom() {
+    const { t } = useTranslation();
  const { id } = useParams();
  const { user } = useAuth();
  const navigate = useNavigate();
@@ -84,7 +86,7 @@ export default function ChatRoom() {
    }
  };
 
- if (loading) return <div className="h-screen flex items-center justify-center">Connexion au chat...</div>;
+ if (loading) return <div className="h-screen flex items-center justify-center">{t('auto.connexion-au-chat')}</div>;
 
  return (
    <div className={cn(
@@ -110,7 +112,7 @@ export default function ChatRoom() {
              </h2>
              <div className="flex items-center gap-2 mt-2">
                <span className="h-1.5 w-1.5 bg-accent rounded-full animate-pulse" />
-               <span className="text-sm lg:text-sm text-editorial-muted font-bold">Session Active</span>
+               <span className="text-sm lg:text-sm text-editorial-muted font-bold">{t('auto.session-active')}</span>
              </div>
            </div>
          </div>
@@ -158,7 +160,7 @@ export default function ChatRoom() {
          value={inputText}
          onChange={(e) => setInputText(e.target.value)}
          className="flex-grow bg-white border border-editorial-border rounded-lg shadow-sm px-6 lg:px-8 py-4 lg:py-3 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors placeholder:text-editorial-fg/80"
-         placeholder="Rédiger une requête..."
+         placeholder={t('auto.rediger-une-requete')}
        />
        <button
          type="submit"

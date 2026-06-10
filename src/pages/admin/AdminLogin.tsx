@@ -5,8 +5,10 @@ import { ShieldAlert, ArrowRight, Lock, KeyRound } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../../lib/utils';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTranslation } from "react-i18next";
 
 export default function AdminLogin() {
+    const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -51,8 +53,8 @@ export default function AdminLogin() {
         </div>
         
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-white tracking-tight mb-2">Accès Sécurisé</h1>
-          <p className="text-sm text-zinc-400">Portail d'administration ArtisanConnect</p>
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-2">{t('auto.acces-securise')}</h1>
+          <p className="text-sm text-zinc-400">{t('auto.portail-dadministration-artisa')}</p>
         </div>
 
         <form onSubmit={handleAdminLogin} className="space-y-5">
@@ -68,7 +70,7 @@ export default function AdminLogin() {
           )}
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Identifiant Admin</label>
+            <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">{t('auto.identifiant-admin')}</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <Lock className="h-4 w-4 text-zinc-500" />
@@ -79,13 +81,13 @@ export default function AdminLogin() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full bg-zinc-950/50 border border-zinc-800 text-white rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all placeholder:text-zinc-600"
-                placeholder="admin@artisanconnect.com"
+                placeholder={t('auto.adminartisanconnectcom')}
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Mot de passe</label>
+            <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">{t('auto.mot-de-passe')}</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <KeyRound className="h-4 w-4 text-zinc-500" />
@@ -112,13 +114,13 @@ export default function AdminLogin() {
             {loading ? (
               <div className="h-5 w-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
             ) : (
-              <>Autoriser l'accès <ArrowRight className="h-4 w-4" /></>
+              <>{t('auto.autoriser-lacces')} <ArrowRight className="h-4 w-4" /></>
             )}
           </button>
         </form>
         
         <div className="mt-8 pt-6 border-t border-zinc-800/50 text-center">
-          <p className="text-xs text-zinc-500">Toute tentative d'accès non autorisée est enregistrée.</p>
+          <p className="text-xs text-zinc-500">{t('auto.toute-tentative-dacces-non-aut')}</p>
         </div>
       </motion.div>
     </div>

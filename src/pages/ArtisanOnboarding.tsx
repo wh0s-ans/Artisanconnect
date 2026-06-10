@@ -71,7 +71,7 @@ export default function ArtisanOnboarding() {
   if (!user || user.role !== 'artisan') {
     return (
       <div className="min-h-[80vh] flex items-center justify-center">
-        <p>Accès non autorisé.</p>
+        <p>{t('auto.acces-non-autorise')}</p>
       </div>
     );
   }
@@ -79,8 +79,8 @@ export default function ArtisanOnboarding() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-semibold text-editorial-fg">Profil Artisan</h1>
-        <p className="text-editorial-muted mt-2">Complétez votre profil pour attirer plus de clients.</p>
+        <h1 className="text-3xl font-semibold text-editorial-fg">{t('auto.profil-artisan')}</h1>
+        <p className="text-editorial-muted mt-2">{t('auto.completez-votre-profil-pour-at')}</p>
         
         <div className="mt-8 flex items-center justify-center gap-2">
           {[1, 2, 3, 4].map(i => (
@@ -98,7 +98,7 @@ export default function ArtisanOnboarding() {
       >
         {step === 1 && (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-editorial-accent">1. Photo de profil</h2>
+            <h2 className="text-xl font-semibold text-editorial-accent">{t('auto.1-photo-de-profil')}</h2>
             <div className="flex flex-col items-center gap-6">
               <div className="w-32 h-32 rounded-full bg-editorial-bg border-2 border-dashed border-editorial-border flex items-center justify-center overflow-hidden">
                 {avatar ? (
@@ -110,15 +110,15 @@ export default function ArtisanOnboarding() {
                 )}
               </div>
               <div className="w-full space-y-2">
-                <label className="text-sm font-bold text-editorial-fg">URL de la photo de profil</label>
+                <label className="text-sm font-bold text-editorial-fg">{t('auto.url-de-la-photo-de-profil')}</label>
                 <input
                   type="url"
                   value={avatar}
                   onChange={e => setAvatar(e.target.value)}
-                  placeholder="https://..."
+                  placeholder={t('auto.https')}
                   className="w-full bg-editorial-bg border border-editorial-border rounded-md px-4 py-2 text-editorial-fg focus:outline-none focus:ring-1 focus:ring-editorial-accent"
                 />
-                <p className="text-xs text-editorial-muted">Entrez l'URL d'une photo hébergée en ligne.</p>
+                <p className="text-xs text-editorial-muted">{t('auto.entrez-lurl-dune-photo-heberge')}</p>
               </div>
             </div>
           </div>
@@ -126,25 +126,25 @@ export default function ArtisanOnboarding() {
 
         {step === 2 && (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-editorial-accent">2. Présentation</h2>
+            <h2 className="text-xl font-semibold text-editorial-accent">{t('auto.2-presentation')}</h2>
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-editorial-fg">Bio (Description de votre expertise)</label>
+                <label className="text-sm font-bold text-editorial-fg">{t('auto.bio-description-de-votre-exper')}</label>
                 <textarea 
                   rows={4}
                   value={bio}
                   onChange={e => setBio(e.target.value)}
-                  placeholder="Parlez-nous de votre expérience et de vos spécialités..."
+                  placeholder={t('auto.parlez-nous-de-votre-experienc')}
                   className="w-full bg-editorial-bg border border-editorial-border rounded-md px-4 py-2 text-editorial-fg focus:outline-none focus:ring-1 focus:ring-editorial-accent resize-none"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-editorial-fg">Tarif horaire minimum (€/h)</label>
+                <label className="text-sm font-bold text-editorial-fg">{t('auto.tarif-horaire-minimum-euroh')}</label>
                 <input 
                   type="number" 
                   value={priceRangeMin}
                   onChange={e => setPriceRangeMin(e.target.value)}
-                  placeholder="Ex: 45"
+                  placeholder={t('auto.ex-45')}
                   className="w-full bg-editorial-bg border border-editorial-border rounded-md px-4 py-2 text-editorial-fg focus:outline-none focus:ring-1 focus:ring-editorial-accent"
                 />
               </div>
@@ -154,7 +154,7 @@ export default function ArtisanOnboarding() {
 
         {step === 3 && (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-editorial-accent">3. Vos compétences</h2>
+            <h2 className="text-xl font-semibold text-editorial-accent">{t('auto.3-vos-competences')}</h2>
             <div className="space-y-4">
               <div className="flex gap-2">
                 <input 
@@ -162,7 +162,7 @@ export default function ArtisanOnboarding() {
                   value={newSkill}
                   onChange={e => setNewSkill(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && addSkill()}
-                  placeholder="Ex: Plomberie générale, Soudure..."
+                  placeholder={t('auto.ex-plomberie-generale-soudure')}
                   className="flex-grow bg-editorial-bg border border-editorial-border rounded-md px-4 py-2 text-editorial-fg focus:outline-none focus:ring-1 focus:ring-editorial-accent"
                 />
                 <button onClick={addSkill} className="bg-editorial-accent text-white px-4 py-2 rounded-md hover:bg-opacity-90">
@@ -174,8 +174,9 @@ export default function ArtisanOnboarding() {
                   <span key={skill} className="bg-editorial-bg border border-editorial-border px-3 py-1 rounded-full text-sm flex items-center gap-2">
                     {skill}
                     <button onClick={() => removeSkill(skill)} className="text-red-500 hover:text-red-700">
-                      &times;
-                    </button>
+                      
+                                                  {t('auto.andtimes')}
+                                                </button>
                   </span>
                 ))}
               </div>
@@ -185,26 +186,26 @@ export default function ArtisanOnboarding() {
 
         {step === 4 && (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold text-editorial-accent">4. Portfolio (Optionnel)</h2>
+            <h2 className="text-xl font-semibold text-editorial-accent">{t('auto.4-portfolio-optionnel')}</h2>
             <div className="space-y-4 border border-editorial-border p-4 rounded-md bg-editorial-bg/30">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-editorial-fg">Titre de la réalisation</label>
+                  <label className="text-xs font-bold text-editorial-fg">{t('auto.titre-de-la-realisation')}</label>
                   <input 
                     type="text" 
                     value={newTitle}
                     onChange={e => setNewTitle(e.target.value)}
-                    placeholder="Ex: Rénovation salle de bain"
+                    placeholder={t('auto.ex-renovation-salle-de-bain')}
                     className="w-full bg-white border border-editorial-border rounded-md px-4 py-2 focus:ring-1 focus:ring-editorial-accent text-sm"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-editorial-fg">URL de la photo</label>
+                  <label className="text-xs font-bold text-editorial-fg">{t('auto.url-de-la-photo')}</label>
                   <input
                     type="url"
                     value={newUrl}
                     onChange={e => setNewUrl(e.target.value)}
-                    placeholder="https://..."
+                    placeholder={t('auto.https')}
                     className="w-full bg-white border border-editorial-border rounded-md px-4 py-2 focus:ring-1 focus:ring-editorial-accent text-sm"
                   />
                 </div>
@@ -214,8 +215,8 @@ export default function ArtisanOnboarding() {
                 disabled={!newTitle.trim() || !newUrl.trim()}
                 className="bg-editorial-accent text-white px-4 py-2 rounded-md text-xs font-semibold hover:bg-opacity-90 disabled:opacity-50 flex items-center gap-2"
               >
-                <Plus className="h-4 w-4" /> Ajouter au portfolio
-              </button>
+                <Plus className="h-4 w-4" />  {t('auto.ajouter-au-portfolio')}
+                                            </button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               {portfolio.map((item, index) => (
@@ -239,15 +240,16 @@ export default function ArtisanOnboarding() {
             disabled={step === 1}
             className="flex items-center gap-2 px-4 py-2 text-editorial-muted hover:text-editorial-fg disabled:opacity-50"
           >
-            <ArrowLeft className="h-4 w-4" /> Précédent
-          </button>
+            <ArrowLeft className="h-4 w-4" />  {t('auto.precedent')}
+                                </button>
           
           {step < 4 ? (
             <button 
               onClick={nextStep}
               className="flex items-center gap-2 px-6 py-2 bg-editorial-fg text-white rounded-md hover:bg-black/80"
             >
-              Suivant <ArrowRight className="h-4 w-4" />
+              
+                                        {t('auto.suivant')} <ArrowRight className="h-4 w-4" />
             </button>
           ) : (
             <button 
@@ -255,7 +257,8 @@ export default function ArtisanOnboarding() {
               disabled={loading}
               className="flex items-center gap-2 px-6 py-2 bg-editorial-accent text-white rounded-md hover:bg-editorial-accent/90 disabled:opacity-50"
             >
-              Terminer {loading && '...'}
+              
+                                            {t('auto.terminer')} {loading && '...'}
             </button>
           )}
         </div>

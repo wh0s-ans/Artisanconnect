@@ -10,6 +10,7 @@ import L from 'leaflet';
 import { useDeviceType } from '../hooks/useDeviceType';
 import { cn } from '../lib/utils';
 import { motion } from 'motion/react';
+import { useTranslation } from "react-i18next";
 
 // Fix for default marker icons in React Leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -34,6 +35,7 @@ function FilterChip({ label, active, onClick }: { label: string, active?: boolea
 }
 
 export default function SearchArtisans() {
+    const { t } = useTranslation();
  const { user } = useAuth();
  const { isMobile, isTablet } = useDeviceType();
  const { data: artisans = [], isLoading: loading } = useQuery({
@@ -63,8 +65,9 @@ export default function SearchArtisans() {
  <div className="min-h-screen bg-editorial-bg py-8">
  <div className="max-w-7xl mx-auto px-4">
  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg mb-8">
- Rechercher un artisan
- </h1>
+ 
+                  {t('auto.rechercher-un-artisan')}
+                  </h1>
  
  {(isTablet || isMobile) && (
    <div className="space-y-4 mb-6">
@@ -73,7 +76,7 @@ export default function SearchArtisans() {
          <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-editorial-muted" />
          <input 
            type="text" 
-           placeholder="Métier, nom..." 
+           placeholder={t('auto.metier-nom')} 
            value={searchTerm}
            onChange={(e) => setSearchTerm(e.target.value)}
            className="w-full bg-white border border-editorial-border rounded-md py-2 px-3 pl-9 text-editorial-fg focus:outline-none focus:border-editorial-accent transition-colors text-sm" 
@@ -82,7 +85,7 @@ export default function SearchArtisans() {
        <div className="relative w-1/3 min-w-[100px]">
          <input 
            type="text" 
-           placeholder="Ville" 
+           placeholder={t('auto.ville')} 
            value={city}
            onChange={(e) => setCity(e.target.value)}
            className="w-full bg-white border border-editorial-border rounded-md py-2 px-3 text-editorial-fg focus:outline-none focus:border-editorial-accent transition-colors text-sm" 
@@ -102,40 +105,40 @@ export default function SearchArtisans() {
  {(!isTablet && !isMobile) && (
  <aside className="w-1/4 space-y-6">
  <div className="bg-editorial-bg p-6 border border-editorial-border rounded-lg shadow-sm">
- <h3 className="text-sm font-semibold text-editorial-fg mb-4">Recherche</h3>
+ <h3 className="text-sm font-semibold text-editorial-fg mb-4">{t('auto.recherche')}</h3>
  <div className="space-y-4">
  <input 
  type="text" 
- placeholder="Métier, nom..." 
+ placeholder={t('auto.metier-nom')} 
  value={searchTerm}
  onChange={(e) => setSearchTerm(e.target.value)}
  className="w-full bg-white border border-editorial-border rounded-md py-2 px-3 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors text-sm" 
  />
  <input 
  type="text" 
- placeholder="Ville" 
+ placeholder={t('auto.ville')} 
  value={city}
  onChange={(e) => setCity(e.target.value)}
  className="w-full bg-white border border-editorial-border rounded-md py-2 px-3 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors text-sm" 
  />
  <div className="pt-2">
- <label className="text-sm font-bold text-editorial-muted">Catégorie</label>
+ <label className="text-sm font-bold text-editorial-muted">{t('auto.categorie')}</label>
  <select 
  value={category}
  onChange={(e) => setCategory(e.target.value)}
  className="w-full mt-1 bg-white border border-editorial-border rounded-md py-2 px-3 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors text-sm appearance-none cursor-pointer"
  >
- <option>Toutes</option>
- <option>Plomberie</option>
- <option>Électricité</option>
- <option>Peinture</option>
- <option>Maçonnerie</option>
- <option>Menuiserie</option>
- <option>Architecture</option>
- <option>Serrurerie</option>
- <option>Jardinage</option>
- <option>Chauffage</option>
- <option>Nettoyage</option>
+ <option>{t('auto.toutes')}</option>
+ <option>{t('auto.plomberie')}</option>
+ <option>{t('auto.electricite')}</option>
+ <option>{t('auto.peinture')}</option>
+ <option>{t('auto.maconnerie')}</option>
+ <option>{t('auto.menuiserie')}</option>
+ <option>{t('auto.architecture')}</option>
+ <option>{t('auto.serrurerie')}</option>
+ <option>{t('auto.jardinage')}</option>
+ <option>{t('auto.chauffage')}</option>
+ <option>{t('auto.nettoyage')}</option>
  </select>
  </div>
  </div>
@@ -146,7 +149,7 @@ export default function SearchArtisans() {
  {/* Résultats */}
  <div className={cn("w-full", (!isTablet && !isMobile) ? "lg:w-3/4" : "")}>
  <div className="mb-6 flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between sm:items-center border-b border-editorial-border pb-4">
- <span className="text-editorial-muted text-sm ">{filteredArtisans.length} artisans trouvés</span>
+ <span className="text-editorial-muted text-sm ">{filteredArtisans.length}  {t('auto.artisans-trouves')}</span>
  <div className="flex items-center gap-4">
    <div className="flex items-center bg-editorial-bg border border-editorial-border rounded-md overflow-hidden">
      <button 
@@ -167,8 +170,8 @@ export default function SearchArtisans() {
    onChange={(e) => setSortBy(e.target.value)}
    className="bg-transparent text-sm font-medium text-editorial-fg focus:outline-none cursor-pointer border border-editorial-border rounded-md px-2 py-1"
    >
-   <option value="Mieux notés">Mieux notés</option>
-   <option value="Plus populaires">Plus populaires</option>
+   <option value="Mieux notés">{t('auto.mieux-notes')}</option>
+   <option value="Plus populaires">{t('auto.plus-populaires')}</option>
    </select>
  </div>
  </div>
@@ -200,8 +203,8 @@ export default function SearchArtisans() {
   <div className="mx-auto w-16 h-16 bg-secondary/30 rounded-full flex items-center justify-center mb-6">
   <Search className="h-8 w-8 text-editorial-muted opacity-50" />
   </div>
-  <p className="text-editorial-fg font-semibold mb-2">Aucun résultat</p>
-  <p className="text-editorial-muted text-sm">Aucun artisan ne correspond à vos critères de recherche.</p>
+  <p className="text-editorial-fg font-semibold mb-2">{t('auto.aucun-resultat')}</p>
+  <p className="text-editorial-muted text-sm">{t('auto.aucun-artisan-ne-correspond-a')}</p>
   </div>
  ) : viewMode === 'list' ? (
  <div className={cn(
@@ -229,13 +232,13 @@ export default function SearchArtisans() {
     <div className="flex-grow min-w-0">
     <div className="flex items-center gap-2 mb-1">
     <h3 className="text-base font-semibold leading-none truncate group-hover:text-editorial-accent transition-colors">{artisan.display_name || 'Artisan'}</h3>
-    {artisan.verified && <span className="text-[9px] bg-green-100 text-green-700 border border-green-200 px-1.5 py-0.5 font-bold rounded shrink-0">Vérifié</span>}
+    {artisan.verified && <span className="text-[9px] bg-green-100 text-green-700 border border-green-200 px-1.5 py-0.5 font-bold rounded shrink-0">{t('auto.verifie')}</span>}
     </div>
     <div className="text-xs text-editorial-muted font-semibold truncate mb-2">{artisan.profession || 'Multi-services'}</div>
     <div className="flex items-center gap-1">
     <Star className="h-3 w-3 fill-editorial-accent text-editorial-accent" />
     <span className="text-xs font-bold text-editorial-fg">{artisan.rating || 0}</span>
-    <span className="text-xs text-editorial-muted">({artisan.review_count || 0} avis)</span>
+    <span className="text-xs text-editorial-muted">({artisan.review_count || 0}  {t('auto.avis')}</span>
     </div>
     </div>
   </div>
@@ -243,7 +246,7 @@ export default function SearchArtisans() {
   <MapPin className="h-3 w-3 shrink-0" />
   <span className="truncate">{artisan.location || 'Localisation non renseignée'}</span>
   {artisan.hourly_rate && (
-  <span className="ml-auto font-semibold text-editorial-fg shrink-0">{artisan.hourly_rate} €/h</span>
+  <span className="ml-auto font-semibold text-editorial-fg shrink-0">{artisan.hourly_rate}  {t('auto.euroh')}</span>
   )}
   </div>
   <div className="flex items-center gap-2 mt-1">
@@ -251,8 +254,9 @@ export default function SearchArtisans() {
       <Heart className="h-4 w-4" />
     </button>
     <Link to={`/artisan/${artisan.id}`} className="flex-1 text-center bg-editorial-fg text-white rounded-lg px-4 py-2.5 font-semibold hover:bg-editorial-accent transition-colors text-sm">
-    Voir le profil
-    </Link>
+    
+                     {t('auto.voir-le-profil')}
+                     </Link>
   </div>
   </motion.div>
  ))}
@@ -275,8 +279,9 @@ export default function SearchArtisans() {
                 <strong className="block text-editorial-fg mb-1">{artisan.display_name || 'Artisan sans nom'}</strong>
                 <p className="text-xs text-editorial-muted mb-2">{artisan.profession || 'Général'}</p>
                 <Link to={`/artisan/${artisan.id}`} className="text-xs bg-editorial-accent text-white px-2 py-1 rounded inline-block hover:opacity-90">
-                  Voir profil
-                </Link>
+                  
+                                              {t('auto.voir-profil')}
+                                            </Link>
               </div>
             </Popup>
           </Marker>

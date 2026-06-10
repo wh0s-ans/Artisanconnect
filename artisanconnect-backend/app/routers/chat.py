@@ -16,10 +16,8 @@ async def get_chats(
     current_user: User = Depends(get_current_user), 
     db: AsyncSession = Depends(get_db)
 ):
-    # In a real app we'd query chats where current_user.id is in participants array.
-    # Postgres JSON/ARRAY syntax would be used: Chat.participants.contains([current_user.id])
-    # Assuming SQLAlchemy ARRAY support
-    query = select(Chat).where(Chat.participants.contains([current_user.id])).offset(offset).limit(limit)
+    from sqlalchemy import cast, String
+    query = select(Chat).where(cast(Chat.participants, String).like(f'%{current_user.id}%')).offset(offset).limit(limit)
     result = await db.execute(query)
     return result.scalars().all()
 

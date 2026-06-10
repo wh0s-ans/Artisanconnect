@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Briefcase, MapPin, Tag, Search, ChevronRight, MessageCircle, AlertCircle, TrendingUp, Star } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
+import { useTranslation } from "react-i18next";
 
 interface ServiceRequest {
  id: string;
@@ -19,6 +20,7 @@ interface ServiceRequest {
 }
 
 export default function ArtisanDashboard() {
+    const { t } = useTranslation();
  const { user, userData } = useAuth();
   const { isMobile, isTablet } = useDeviceType();
   const [availableRequests, setAvailableRequests] = useState<ServiceRequest[]>([]);
@@ -44,9 +46,9 @@ export default function ArtisanDashboard() {
   return (
   <div className="space-y-8 lg:space-y-12">
   <div className="pb-8 lg:pb-12 border-b border-editorial-border px-4 lg:px-0 mt-4 lg:mt-0">
-  <span className="text-sm text-editorial-accent font-semibold mb-3 lg:mb-4 block ">Espace Professionnel</span>
-  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">Tableau de bord Artisan</h1>
-  <p className="mt-3 lg:mt-4 text-sm lg:text-base text-editorial-muted ">Accédez aux missions d'exception et développez votre renommée.</p>
+  <span className="text-sm text-editorial-accent font-semibold mb-3 lg:mb-4 block ">{t('auto.espace-professionnel')}</span>
+  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">{t('auto.tableau-de-bord-artisan')}</h1>
+  <p className="mt-3 lg:mt-4 text-sm lg:text-base text-editorial-muted ">{t('auto.accedez-aux-missions-dexceptio')}</p>
   </div>
 
   {isMobile && (
@@ -64,15 +66,16 @@ export default function ArtisanDashboard() {
   </div>
   <div>
   <div className=" text-lg text-editorial-fg font-medium leading-tight">{userData?.displayName}</div>
-  <div className="text-xs font-medium text-accent mt-1 font-semibold flex items-center gap-1"><Star className="h-3 w-3 fill-current" /> {userData?.rating || '0.0'} Note Excellence</div>
+  <div className="text-xs font-medium text-accent mt-1 font-semibold flex items-center gap-1"><Star className="h-3 w-3 fill-current" /> {userData?.rating || '0.0'}  {t('auto.note-excellence')}</div>
   </div>
   </div>
   <Link 
   to={`/profile`}
   className="px-4 py-2 border border-editorial-fg text-editorial-fg text-xs font-semibold rounded-full"
   >
-  Profil
-  </Link>
+  
+                            {t('auto.profil')}
+                            </Link>
   </div>
   </div>
   )}
@@ -85,14 +88,14 @@ export default function ArtisanDashboard() {
      initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
      className="bg-secondary/20 border border-editorial-border rounded-lg shadow-sm p-4 sm:p-6 lg:p-8 flex flex-col items-center sm:items-start justify-center"
    >
-     <span className="text-xs sm:text-sm font-medium text-editorial-muted mb-2 text-center sm:text-left flex items-center gap-2"><TrendingUp className="h-4 w-4 hidden sm:block" /> Note Excellence</span>
+     <span className="text-xs sm:text-sm font-medium text-editorial-muted mb-2 text-center sm:text-left flex items-center gap-2"><TrendingUp className="h-4 w-4 hidden sm:block" />  {t('auto.note-excellence')}</span>
      <span className="text-3xl sm:text-4xl font-medium text-editorial-accent flex items-center gap-2"><Star className="h-6 w-6 sm:h-8 sm:w-8 fill-current" /> {userData?.rating || '0.0'}</span>
    </motion.div>
    <motion.div 
      initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
      className="bg-secondary/5 border border-editorial-border rounded-lg shadow-sm p-4 sm:p-6 lg:p-8 flex flex-col items-center sm:items-start justify-center"
    >
-     <span className="text-xs sm:text-sm font-medium text-editorial-muted mb-2 text-center sm:text-left flex items-center gap-2"><MessageCircle className="h-4 w-4 hidden sm:block" /> Avis Clients</span>
+     <span className="text-xs sm:text-sm font-medium text-editorial-muted mb-2 text-center sm:text-left flex items-center gap-2"><MessageCircle className="h-4 w-4 hidden sm:block" />  {t('auto.avis-clients')}</span>
      <span className="text-3xl sm:text-4xl font-medium text-editorial-fg">{userData?.reviewCount || 0}</span>
    </motion.div>
   </div>
@@ -103,9 +106,10 @@ export default function ArtisanDashboard() {
  <div className="flex items-center justify-between">
  <h2 className="text-sm text-editorial-muted font-bold flex items-center gap-4">
  <Search className="h-4 w-4 text-editorial-accent" />
- Nouveaux besoins disponibles
- </h2>
- <Link to="/requests" className="hidden sm:block text-sm text-editorial-accent font-bold hover:opacity-80 transition-opacity">Voir tout</Link>
+ 
+                           {t('auto.nouveaux-besoins-disponibles')}
+                           </h2>
+ <Link to="/requests" className="hidden sm:block text-sm text-editorial-accent font-bold hover:opacity-80 transition-opacity">{t('auto.voir-tout')}</Link>
  </div>
 
  {loading ? (
@@ -114,7 +118,7 @@ export default function ArtisanDashboard() {
  </div>
  ) : availableRequests.length === 0 ? (
  <div className="bg-secondary/5 border border-dashed border-editorial-border rounded-lg p-8 lg:p-20 text-center">
- <p className="text-editorial-muted ">Le carnet de commandes est actuellement complet.</p>
+ <p className="text-editorial-muted ">{t('auto.le-carnet-de-commandes-est-act')}</p>
  </div>
  ) : (
  <div className="flex flex-col gap-4 sm:grid sm:gap-px sm:bg-editorial-border sm:border sm:border-editorial-border rounded-lg sm:overflow-hidden">
@@ -161,7 +165,8 @@ export default function ArtisanDashboard() {
  </div>
  </div>
  <span className="text-sm text-editorial-accent font-semibold transition-transform inline-flex items-center gap-2 self-start sm:self-auto group-hover:translate-x-2">
- Répondre <ChevronRight className="h-3 w-3" />
+ 
+                      {t('auto.repondre')} <ChevronRight className="h-3 w-3" />
  </span>
  </div>
  </Link>
@@ -175,7 +180,7 @@ export default function ArtisanDashboard() {
  <div className="md:col-span-4 space-y-8 lg:space-y-12 order-1 md:order-2">
  {!isMobile && (
  <div className="bg-editorial-bg border border-editorial-border rounded-lg shadow-sm p-6 lg:p-10">
- <h3 className="text-sm text-editorial-muted font-semibold mb-10 pb-4 border-b border-editorial-border">Maison</h3>
+ <h3 className="text-sm text-editorial-muted font-semibold mb-10 pb-4 border-b border-editorial-border">{t('auto.maison')}</h3>
  <div className="flex items-center gap-6 mb-10">
  <div className="h-16 w-16 border border-editorial-border rounded-lg shadow-sm overflow-hidden">
  {userData?.avatar_url ? (
@@ -188,15 +193,16 @@ export default function ArtisanDashboard() {
  </div>
  <div>
  <div className=" text-xl text-editorial-fg font-medium">{userData?.displayName}</div>
- <div className="text-sm font-medium text-accent font-semibold mt-1 ">Vérifié</div>
+ <div className="text-sm font-medium text-accent font-semibold mt-1 ">{t('auto.verifie')}</div>
  </div>
  </div>
  <Link 
  to={`/profile`}
  className="block w-full py-4 border border-editorial-fg text-editorial-fg text-center text-sm font-semibold hover:bg-editorial-fg hover:text-white transition-all rounded-lg"
  >
- Éditer le profil
- </Link>
+ 
+                               {t('auto.editer-le-profil')}
+                               </Link>
  </div>
  )}
  </div>

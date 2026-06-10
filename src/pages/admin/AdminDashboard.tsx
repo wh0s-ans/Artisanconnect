@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Users, ClipboardList, PieChart, ShieldAlert } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTranslation } from "react-i18next";
 
 export default function AdminDashboard() {
+    const { t } = useTranslation();
  const { userData } = useAuth();
 
  return (
@@ -11,25 +13,25 @@ export default function AdminDashboard() {
  <div className="max-w-7xl mx-auto px-4">
  <div className="mb-12 border-b border-editorial-border pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
  <div>
- <span className="text-sm text-editorial-accent font-semibold mb-4 block ">Supervision</span>
- <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">Espace Administrateur</h1>
+ <span className="text-sm text-editorial-accent font-semibold mb-4 block ">{t('auto.supervision')}</span>
+ <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">{t('auto.espace-administrateur')}</h1>
  </div>
  <div className="flex items-center gap-2 text-editorial-muted text-sm font-medium">
- <ShieldAlert className="h-4 w-4" /> Niveau d'accès : Maximum
- </div>
+ <ShieldAlert className="h-4 w-4" />  {t('auto.niveau-dacces-maximum')}
+                      </div>
  </div>
 
  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
- <AdminStatCard title="Utilisateurs" value="1,248" trend="+12%" icon={<Users />} link="/admin/users" />
- <AdminStatCard title="Artisans" value="342" trend="+5%" icon={<Users />} link="/admin/users?filter=artisan" />
- <AdminStatCard title="Missions en cours" value="89" trend="-2%" icon={<ClipboardList />} link="/admin/requests" />
- <AdminStatCard title="Litiges" value="3" trend="Attention" icon={<ShieldAlert />} link="/admin/requests?filter=dispute" />
+ <AdminStatCard title={t('auto.utilisateurs')} value="1,248" trend="+12%" icon={<Users />} link="/admin/users" />
+ <AdminStatCard title={t('auto.artisans')} value="342" trend="+5%" icon={<Users />} link="/admin/users?filter=artisan" />
+ <AdminStatCard title={t('auto.missions-en-cours')} value="89" trend="-2%" icon={<ClipboardList />} link="/admin/requests" />
+ <AdminStatCard title={t('auto.litiges')} value="3" trend="Attention" icon={<ShieldAlert />} link="/admin/requests?filter=dispute" />
  </div>
 
  <div className="grid lg:grid-cols-3 gap-8">
  <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-editorial-border rounded-lg shadow-sm p-6 lg:p-10">
  <div className="flex justify-between items-center mb-8 pb-4 border-b border-editorial-border">
- <h3 className="text-lg text-editorial-fg">Activité Récente</h3>
+ <h3 className="text-lg text-editorial-fg">{t('auto.activite-recente')}</h3>
  </div>
  <div className="space-y-6">
  <ActivityItem text="Nouvel artisan inscrit : Forge & Co." time="Il y a 10 min" />
@@ -43,19 +45,19 @@ export default function AdminDashboard() {
  <Link to="/admin/users" className="flex items-center justify-between p-6 bg-editorial-bg border border-editorial-border rounded-lg shadow-sm hover:border-editorial-accent transition-colors group">
  <div className="flex items-center gap-4">
  <div className="p-3 bg-white rounded-xl shadow-sm border border-editorial-border rounded-lg shadow-sm"><Users className="h-5 w-5 text-editorial-muted group-hover:text-editorial-accent transition-colors" /></div>
- <span className="text-sm font-semibold text-editorial-fg">Gérer les membres</span>
+ <span className="text-sm font-semibold text-editorial-fg">{t('auto.gerer-les-membres')}</span>
  </div>
  </Link>
  <Link to="/admin/requests" className="flex items-center justify-between p-6 bg-editorial-bg border border-editorial-border rounded-lg shadow-sm hover:border-editorial-accent transition-colors group">
  <div className="flex items-center gap-4">
  <div className="p-3 bg-white rounded-xl shadow-sm border border-editorial-border rounded-lg shadow-sm"><ClipboardList className="h-5 w-5 text-editorial-muted group-hover:text-editorial-accent transition-colors" /></div>
- <span className="text-sm font-semibold text-editorial-fg">Gérer les demandes</span>
+ <span className="text-sm font-semibold text-editorial-fg">{t('auto.gerer-les-demandes')}</span>
  </div>
  </Link>
  <Link to="/admin/stats" className="flex items-center justify-between p-6 bg-editorial-bg border border-editorial-border rounded-lg shadow-sm hover:border-editorial-accent transition-colors group">
  <div className="flex items-center gap-4">
  <div className="p-3 bg-white rounded-xl shadow-sm border border-editorial-border rounded-lg shadow-sm"><PieChart className="h-5 w-5 text-editorial-muted group-hover:text-editorial-accent transition-colors" /></div>
- <span className="text-sm font-semibold text-editorial-fg">Rapports & Stats</span>
+ <span className="text-sm font-semibold text-editorial-fg">{t('auto.rapports-and-stats')}</span>
  </div>
  </Link>
  </div>

@@ -10,6 +10,31 @@ from typing import List, Optional
 
 router = APIRouter(prefix="/users", tags=["users"])
 
+@router.get("", response_model=List[UserResponse])
+async def list_users(
+    role: Optional[str] = None,
+    category: Optional[str] = None,
+    city: Optional[str] = None,
+    limit: int = 50,
+    offset: int = 0,
+    db: AsyncSession = Depends(get_db)
+):
+    from sqlalchemy import String, cast
+    query = select(User).where(User.is_available == True)
+    if role:
+        query = query.where(User.role == role)
+    if city:
+        query = query.where(User.location.ilike(f"%{city}%") | User.city.ilike(f"%{city}%"))
+    
+    result = await db.execute(query.offset(offset).limit(limit))
+    users = result.scalars().all()
+
+    # Filter by category if requested (since specialties is an ARRAY)
+    if category and category != 'Toutes':
+        users = [u for u in users if u.specialties and category in u.specialties or u.profession == category]
+        
+    return users
+
 @router.get("/me", response_model=UserResponse)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user

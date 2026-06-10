@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ClipboardList, Hammer, Star, ShieldCheck, MessageSquare, CheckCircle2 } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 export default function HowItWorksPage() {
+    const { t } = useTranslation();
  const steps = [
  {
  icon: <ClipboardList className="h-6 w-6" />,
@@ -40,13 +42,15 @@ export default function HowItWorksPage() {
  animate={{ opacity: 1, y: 0 }}
  className="max-w-3xl"
  >
- <span className="text-sm text-editorial-accent font-semibold mb-6 block">Le Parcours</span>
+ <span className="text-sm text-editorial-accent font-semibold mb-6 block">{t('auto.le-parcours')}</span>
  <h1 className="text-4xl lg:text-7xl font-semibold text-editorial-fg leading-none mb-8">
- Une expérience <span className=" -">fluide</span> et <span className=" -">sécurisée.</span>
+ 
+                          {t('auto.une-experience')} <span className=" -">{t('auto.fluide')}</span>  {t('auto.et')} <span className=" -">{t('auto.securisee')}</span>
  </h1>
  <p className="text-editorial-muted text-lg leading-relaxed">
- De la première esquisse à la touche finale, ArtisanConnect vous accompagne à chaque étape de votre transformation intérieure.
- </p>
+ 
+                          {t('auto.de-la-premiere-esquisse-a-la-t')}
+                          </p>
  </motion.div>
  </div>
  </section>
@@ -74,7 +78,7 @@ export default function HowItWorksPage() {
  </p>
  <div className="flex items-center gap-4 text-sm font-medium text-editorial-accent">
  <CheckCircle2 className="h-4 w-4" />
- <span>Étape certifiée ArtisanConnect</span>
+ <span>{t('auto.etape-certifiee-artisanconnect')}</span>
  </div>
  </div>
  <div className="flex-1 aspect-[16/10] overflow-hidden border border-editorial-border rounded-lg shadow-sm bg-secondary/5">
@@ -95,22 +99,24 @@ export default function HowItWorksPage() {
  <section className="py-24 bg-white rounded-xl shadow-sm text-white overflow-hidden relative">
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
  <div className="max-w-2xl mx-auto">
- <h2 className="text-3xl lg:text-5xl font-semibold mb-8 ">Prêt à transformer votre vision en réalité ?</h2>
+ <h2 className="text-3xl lg:text-5xl font-semibold mb-8 ">{t('auto.pret-a-transformer-votre-visio')}</h2>
  <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
  <motion.button 
  whileHover={{ scale: 1.02 }}
  whileTap={{ scale: 0.98 }}
  className="px-8 py-4 bg-editorial-accent hover:bg-editorial-accent/90 text-white text-sm font-semibold"
  >
- Publier un projet
- </motion.button>
+ 
+                              {t('auto.publier-un-projet')}
+                              </motion.button>
  <motion.button 
  whileHover={{ scale: 1.02 }}
  whileTap={{ scale: 0.98 }}
  className="px-8 py-4 border border-editorial-bg/20 text-white text-sm font-semibold hover:bg-white hover:text-charcoal transition-colors"
  >
- Rejoindre en tant qu'artisan
- </motion.button>
+ 
+                              {t('auto.rejoindre-en-tant-quartisan')}
+                              </motion.button>
  </div>
  </div>
  </div>

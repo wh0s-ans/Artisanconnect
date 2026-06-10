@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { auth } from '../services/api';
 import { Mail, ArrowRight, CheckCircle2, AlertCircle, ArrowLeft, Hammer } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useTranslation } from "react-i18next";
 
 export default function ForgotPassword() {
+    const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -38,7 +40,7 @@ export default function ForgotPassword() {
           <div className="bg-editorial-accent p-1.5">
             <Hammer className="h-4 w-4 text-white" />
           </div>
-          <span className="text-editorial-fg font-semibold tracking-widest text-sm">ArtisanConnect</span>
+          <span className="text-editorial-fg font-semibold tracking-widest text-sm">{t('auto.artisanconnect')}</span>
         </div>
 
         <div className="bg-white rounded-xl border border-editorial-border shadow-sm p-8 lg:p-12">
@@ -53,32 +55,36 @@ export default function ForgotPassword() {
                 <div className="mx-auto w-16 h-16 bg-green-50 border border-green-100 rounded-full flex items-center justify-center mb-6">
                   <CheckCircle2 className="h-8 w-8 text-green-500" />
                 </div>
-                <h2 className="text-2xl font-semibold text-editorial-fg mb-3">Email envoyé !</h2>
+                <h2 className="text-2xl font-semibold text-editorial-fg mb-3">{t('auto.email-envoye')}</h2>
                 <p className="text-editorial-muted text-sm leading-relaxed mb-8">
-                  Un lien de réinitialisation a été envoyé à{' '}
-                  <strong className="text-editorial-fg">{email}</strong>.
-                  Vérifiez votre boîte de réception (et vos spams).
-                </p>
+                  
+                                                    {t('auto.un-lien-de-reinitialisation-a')}{' '}
+                  <strong className="text-editorial-fg">{email}</strong>{t('auto.verifiez-votre-boite-de-recept')}
+                                                  </p>
                 <Link
                   to="/login"
                   className="inline-flex items-center gap-2 py-3 px-6 text-sm font-semibold text-white bg-editorial-accent hover:bg-editorial-accent/90 rounded-lg transition-all"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Retour à la connexion
-                </Link>
+                  
+                                                    {t('auto.retour-a-la-connexion')}
+                                                  </Link>
               </motion.div>
             ) : (
               <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <div className="mb-8">
                   <span className="text-xs font-bold text-editorial-accent tracking-widest uppercase mb-2 block">
-                    Récupération
-                  </span>
+                    
+                                                              {t('auto.recuperation')}
+                                                            </span>
                   <h1 className="text-3xl font-semibold text-editorial-fg tracking-tight">
-                    Mot de passe oublié ?
-                  </h1>
+                    
+                                                              {t('auto.mot-de-passe-oublie')}
+                                                            </h1>
                   <p className="mt-2 text-editorial-muted text-sm">
-                    Pas de panique ! Entrez votre email et nous vous enverrons un lien pour le réinitialiser.
-                  </p>
+                    
+                                                              {t('auto.pas-de-panique-entrez-votre-em')}
+                                                            </p>
                 </div>
 
                 {error && (
@@ -95,8 +101,9 @@ export default function ForgotPassword() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="space-y-1.5">
                     <label className="text-[11px] uppercase tracking-widest font-bold text-editorial-muted">
-                      Adresse email
-                    </label>
+                      
+                                                                    {t('auto.adresse-email')}
+                                                                  </label>
                     <div className="relative">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-editorial-muted pointer-events-none" />
                       <input
@@ -105,7 +112,7 @@ export default function ForgotPassword() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-white border border-editorial-border rounded-lg py-3.5 pl-11 pr-4 text-editorial-fg focus:outline-none focus:border-editorial-accent focus:ring-2 focus:ring-editorial-accent/10 transition-all placeholder:text-editorial-muted/40 text-sm"
-                        placeholder="votre@email.com"
+                        placeholder={t('auto.votreemailcom')}
                         autoComplete="email"
                       />
                     </div>
@@ -119,11 +126,12 @@ export default function ForgotPassword() {
                     {loading ? (
                       <span className="flex items-center gap-2">
                         <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Envoi en cours...
-                      </span>
+                        
+                                                                          {t('auto.envoi-en-cours')}
+                                                                        </span>
                     ) : (
                       <>
-                        <span>Envoyer le lien</span>
+                        <span>{t('auto.envoyer-le-lien')}</span>
                         <ArrowRight className="h-4 w-4" />
                       </>
                     )}
@@ -140,8 +148,9 @@ export default function ForgotPassword() {
             className="inline-flex items-center gap-1.5 text-sm text-editorial-muted hover:text-editorial-accent transition-colors font-medium"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
-            Retour à la connexion
-          </Link>
+            
+                                  {t('auto.retour-a-la-connexion')}
+                                </Link>
         </div>
       </motion.div>
     </div>

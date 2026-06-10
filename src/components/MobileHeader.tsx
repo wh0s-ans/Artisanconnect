@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { auth } from '../services/api';
 import { useUnreadCounts } from '../hooks/useUnreadCounts';
 import LanguageSelector from './LanguageSelector';
+import ThemeToggle from './ThemeToggle';
 
 export default function MobileHeader() {
   const { user } = useAuth();
@@ -29,25 +30,27 @@ export default function MobileHeader() {
             type="button" 
             onClick={() => navigate(-1)} 
             className="p-1.5 hover:bg-black/5 rounded-full transition-colors text-editorial-fg mr-1"
-            aria-label="Retour"
+            aria-label={t('auto.retour')}
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
         )}
         <Link to="/" className="font-sans text-base font-medium text-editorial-accent">
-          ArtisanConnect
-        </Link>
+          
+                            {t('auto.artisanconnect')}
+                          </Link>
       </div>
       
       {user ? (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
           <LanguageSelector />
           <button 
             type="button"
             onClick={handleSignOut}
             className="p-1.5 text-editorial-muted hover:text-red-500 rounded-full hover:bg-black/5 transition-colors flex items-center justify-center shrink-0"
             title={t('nav.logout') || "Déconnexion"}
-            aria-label="Déconnexion"
+            aria-label={t('auto.deconnexion')}
           >
             <LogOut className="h-5 w-5" />
           </button>
@@ -59,7 +62,8 @@ export default function MobileHeader() {
           </Link>
         </div>
       ) : (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
           <LanguageSelector />
           <Link to="/login" className="flex items-center justify-center p-1.5 text-editorial-muted hover:text-editorial-accent hover:bg-black/5 rounded-full transition-colors">
             <User className="h-5 w-5" />

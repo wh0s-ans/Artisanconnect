@@ -7,8 +7,10 @@ import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 
 import { useDeviceType } from '../hooks/useDeviceType';
+import { useTranslation } from "react-i18next";
 
 export default function ProfilePage() {
+    const { t } = useTranslation();
  const { user, refetchUser } = useAuth();
   const { uid: routeUid } = useParams();
   const uid = routeUid || user?.id;
@@ -169,8 +171,9 @@ export default function ProfilePage() {
  onClick={() => setIsEditing(true)}
  className="mt-6 md:mt-0 md:absolute md:top-8 md:right-12 w-full md:w-auto px-6 lg:px-8 py-3 border border-editorial-fg text-editorial-fg text-sm font-semibold hover:bg-editorial-fg hover:text-white transition-all"
  >
- Éditer le profil
- </button>
+ 
+                              {t('auto.editer-le-profil')}
+                              </button>
  )}
  </div>
 
@@ -180,7 +183,7 @@ export default function ProfilePage() {
  <form onSubmit={handleUpdate} className="space-y-8 lg:space-y-16 max-w-3xl mx-auto">
  <div className="grid sm:grid-cols-2 gap-8 lg:gap-12">
  <div className="space-y-4">
- <label className="text-sm text-editorial-accent font-bold">Identité</label>
+ <label className="text-sm text-editorial-accent font-bold">{t('auto.identite')}</label>
  <input 
  type="text"
  className="w-full bg-white border border-editorial-border rounded-md py-3 px-4 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors "
@@ -189,31 +192,31 @@ export default function ProfilePage() {
  />
  </div>
  <div className="space-y-4">
- <label className="text-sm text-editorial-accent font-bold">Localisation</label>
+ <label className="text-sm text-editorial-accent font-bold">{t('auto.localisation')}</label>
  <input 
  type="text"
  className="w-full bg-white border border-editorial-border rounded-md py-3 px-4 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors "
  value={editForm.location || ''}
  onChange={e => setEditForm({ ...editForm, location: e.target.value })}
- placeholder="Ex: Paris, FR"
+ placeholder={t('auto.ex-paris-fr')}
  />
  </div>
  </div>
 
  <div className="space-y-4">
- <label className="text-sm text-editorial-accent font-bold">Philosophie & Parcours</label>
+ <label className="text-sm text-editorial-accent font-bold">{t('auto.philosophie-and-parcours')}</label>
  <textarea 
  rows={4}
  className="w-full bg-white border border-editorial-border rounded-md py-3 px-4 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors resize-none"
  value={editForm.bio}
  onChange={e => setEditForm({ ...editForm, bio: e.target.value })}
- placeholder="L'essence de votre art..."
+ placeholder={t('auto.lessence-de-votre-art')}
  />
  </div>
 
  {profile.role === 'artisan' && (
  <div className="space-y-4">
- <label className="text-sm text-editorial-accent font-bold">Maîtrises (séparées par des virgules)</label>
+ <label className="text-sm text-editorial-accent font-bold">{t('auto.maitrises-separees-par-des-vir')}</label>
  <input 
  type="text"
  className="w-full bg-white border border-editorial-border rounded-md py-3 px-4 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors "
@@ -230,22 +233,24 @@ export default function ProfilePage() {
  className="flex-1 py-4 lg:py-6 bg-editorial-accent hover:bg-editorial-accent/90 text-white text-sm font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-4"
  >
  <Save className="h-4 w-4" />
- Consigner les modifications
- </button>
+ 
+                                      {t('auto.consigner-les-modifications')}
+                                      </button>
  <button 
  type="button"
  onClick={() => setIsEditing(false)}
  className="px-6 lg:px-12 py-4 lg:py-6 border border-editorial-border rounded-lg shadow-sm text-editorial-muted text-sm font-semibold hover:text-editorial-fg hover:border-editorial-fg transition-all"
  >
- Annuler
- </button>
+ 
+                                      {t('auto.annuler')}
+                                      </button>
  </div>
  </form>
  ) : (
  <div className={cn("grid gap-10 lg:gap-20", isTablet ? "grid-cols-2" : "grid-cols-1 lg:grid-cols-12")}>
  <div className={cn("space-y-12 lg:space-y-20", !isTablet && "lg:col-span-8")}>
  <section className="space-y-6 lg:space-y-8">
- <h2 className="text-sm text-editorial-accent font-semibold border-b border-editorial-border pb-4">À propos</h2>
+ <h2 className="text-sm text-editorial-accent font-semibold border-b border-editorial-border pb-4">{t('auto.a-propos')}</h2>
  <p className="text-editorial-fg text-lg lg:text-xl leading-relaxed whitespace-pre-wrap ">
  {profile.bio || "En quête d'excellence..."}
  </p>
@@ -253,7 +258,7 @@ export default function ProfilePage() {
 
  {profile.role === 'artisan' && (
  <section className="space-y-6 lg:space-y-8">
- <h2 className="text-sm text-editorial-accent font-semibold border-b border-editorial-border pb-4">Domaines d'Expertises</h2>
+ <h2 className="text-sm text-editorial-accent font-semibold border-b border-editorial-border pb-4">{t('auto.domaines-dexpertises')}</h2>
  <div className="flex flex-wrap gap-3 lg:gap-4">
  {profile.specialties?.length > 0 ? (
  profile.specialties.map((skill: string) => (
@@ -262,14 +267,14 @@ export default function ProfilePage() {
  </span>
  ))
  ) : (
- <p className="text-editorial-muted underline decoration-editorial-accent underline-offset-4 decoration-1">L'expertise sera bientôt renseignée.</p>
+ <p className="text-editorial-muted underline decoration-editorial-accent underline-offset-4 decoration-1">{t('auto.lexpertise-sera-bientot-rensei')}</p>
  )}
  </div>
  </section>
  )}
 
  <section className="space-y-6 lg:space-y-8">
- <h2 className="text-sm text-editorial-accent font-semibold border-b border-editorial-border pb-4">Portfolio d'Interventions</h2>
+ <h2 className="text-sm text-editorial-accent font-semibold border-b border-editorial-border pb-4">{t('auto.portfolio-dinterventions')}</h2>
  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1">
  {profile.portfolio?.length > 0 ? (
  profile.portfolio.map((img: string, idx: number) => (
@@ -280,7 +285,7 @@ export default function ProfilePage() {
  ) : (
  <div className="col-span-full py-16 py-8 bg-white rounded-xl shadow-sm border border-dashed border-editorial-border rounded-lg text-center grayscale opacity-50">
  <Camera className="h-8 w-8 text-editorial-muted mx-auto mb-4 lg:mb-6" />
- <p className="text-editorial-muted text-sm lg:text-base">Archives visuelles en cours de constitution.</p>
+ <p className="text-editorial-muted text-sm lg:text-base">{t('auto.archives-visuelles-en-cours-de')}</p>
  </div>
  )}
  </div>
@@ -289,29 +294,32 @@ export default function ProfilePage() {
 
  <div className={cn("space-y-8 lg:space-y-12", !isTablet && "lg:col-span-4")}>
  <div className="p-6 lg:p-10 bg-editorial-bg border border-editorial-border rounded-lg shadow-sm shadow-2xl">
- <h3 className="text-sm text-editorial-accent font-semibold mb-6 lg:mb-10 pb-4 border-b border-editorial-border">Archives</h3>
+ <h3 className="text-sm text-editorial-accent font-semibold mb-6 lg:mb-10 pb-4 border-b border-editorial-border">{t('auto.archives')}</h3>
  <div className="space-y-8 lg:space-y-10">
  <div className="flex flex-col gap-2">
  <span className="text-sm font-medium text-editorial-muted flex items-center gap-3">
  <MapPin className="h-3 w-3" />
- Résidence
- </span>
+ 
+                                                      {t('auto.residence')}
+                                                      </span>
  <span className=" text-lg text-editorial-fg ">{profile.location || 'Nomade'}</span>
  </div>
  <div className="flex flex-col gap-2">
  <span className="text-sm font-medium text-editorial-muted flex items-center gap-3">
  <Briefcase className="h-3 w-3" />
- Affiliation
- </span>
- <span className=" text-lg text-editorial-fg text-editorial-accent">Depuis {new Date(profile.created_at || Date.now()).getFullYear()}</span>
+ 
+                                                      {t('auto.affiliation')}
+                                                      </span>
+ <span className=" text-lg text-editorial-fg text-editorial-accent">{t('auto.depuis')} {new Date(profile.created_at || Date.now()).getFullYear()}</span>
  </div>
  </div>
  </div>
 
  {profile.role === 'artisan' && !isOwnProfile && (
  <button className="w-full py-4 lg:py-6 bg-editorial-accent hover:bg-editorial-accent/90 text-white text-sm font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-3 lg:gap-4">
- Établir le contact
- <ExternalLink className="h-4 w-4" />
+ 
+                                              {t('auto.etablir-le-contact')}
+                                              <ExternalLink className="h-4 w-4" />
  </button>
  )}
  </div>

@@ -4,8 +4,10 @@ import { motion } from 'motion/react';
 import { cn } from '../../lib/utils';
 import { admin } from '../../services/api';
 import { useDeviceType } from '../../hooks/useDeviceType';
+import { useTranslation } from "react-i18next";
 
 export default function AdminUsers() {
+    const { t } = useTranslation();
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { isMobile } = useDeviceType();
@@ -29,11 +31,11 @@ export default function AdminUsers() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 className="text-2xl font-semibold text-editorial-fg">Utilisateurs</h1>
+        <h1 className="text-2xl font-semibold text-editorial-fg">{t('auto.utilisateurs')}</h1>
         <div className="flex gap-2">
           <div className="relative">
             <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-editorial-muted" />
-            <input type="text" placeholder="Rechercher..." className="pl-9 pr-4 py-2 bg-white border border-editorial-border rounded-md text-sm focus:outline-none focus:border-editorial-accent" />
+            <input type="text" placeholder={t('auto.rechercher')} className="pl-9 pr-4 py-2 bg-white border border-editorial-border rounded-md text-sm focus:outline-none focus:border-editorial-accent" />
           </div>
           <button className="p-2 bg-white border border-editorial-border rounded-md text-editorial-muted hover:text-editorial-fg transition-colors">
             <Filter className="h-4 w-4" />
@@ -43,9 +45,9 @@ export default function AdminUsers() {
 
       <div className={cn(!isMobile && "bg-white border border-editorial-border rounded-lg shadow-sm overflow-hidden")}>
         {loading ? (
-          <div className="p-6 text-center text-sm text-editorial-muted">Chargement...</div>
+          <div className="p-6 text-center text-sm text-editorial-muted">{t('auto.chargement')}</div>
         ) : users.length === 0 ? (
-          <div className="p-6 text-center text-sm text-editorial-muted">Aucun utilisateur.</div>
+          <div className="p-6 text-center text-sm text-editorial-muted">{t('auto.aucun-utilisateur')}</div>
         ) : isMobile ? (
           <div className="space-y-3">
             {users.map(u => (
@@ -66,16 +68,18 @@ export default function AdminUsers() {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-xs text-editorial-muted">
-                  <div><span className="font-medium">Inscription :</span> {formatDate(u.created_at)}</div>
-                  <div><span className="font-medium">Statut :</span> {u.status === 'banned' ? 'Banni' : 'Actif'}</div>
+                  <div><span className="font-medium">{t('auto.inscription')}</span> {formatDate(u.created_at)}</div>
+                  <div><span className="font-medium">{t('auto.statut')}</span> {u.status === 'banned' ? 'Banni' : 'Actif'}</div>
                 </div>
                 <div className="flex gap-2 pt-2 border-t border-editorial-border/50">
                   <button className="flex-1 py-1.5 text-xs font-semibold border border-editorial-border rounded text-editorial-fg hover:bg-secondary/10 transition-colors">
-                    Profil
-                  </button>
+                    
+                                                {t('auto.profil')}
+                                              </button>
                   <button className="px-3 py-1.5 text-xs font-semibold border border-red-200 text-red-500 rounded hover:bg-red-50 transition-colors">
-                    Bannir
-                  </button>
+                    
+                                                {t('auto.bannir')}
+                                              </button>
                 </div>
               </div>
             ))}
@@ -85,11 +89,11 @@ export default function AdminUsers() {
             <table className="w-full text-left text-sm whitespace-nowrap">
               <thead className="bg-secondary/5 border-b border-editorial-border text-editorial-muted">
                 <tr>
-                  <th className="px-6 py-4 font-bold">Utilisateur / Artisan</th>
-                  <th className="px-6 py-4 font-bold">Rôle</th>
-                  <th className="px-6 py-4 font-bold">Inscription</th>
-                  <th className="px-6 py-4 font-bold">Statut</th>
-                  <th className="px-6 py-4 font-bold text-right">Actions</th>
+                  <th className="px-6 py-4 font-bold">{t('auto.utilisateur-artisan')}</th>
+                  <th className="px-6 py-4 font-bold">{t('auto.role')}</th>
+                  <th className="px-6 py-4 font-bold">{t('auto.inscription')}</th>
+                  <th className="px-6 py-4 font-bold">{t('auto.statut')}</th>
+                  <th className="px-6 py-4 font-bold text-right">{t('auto.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-editorial-border">

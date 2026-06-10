@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 import { Clock, MapPin, Tag, ChevronRight, PlusCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
-
+import { useTranslation } from "react-i18next";
 
 export default function MyRequests() {
+    const { t } = useTranslation();
  const { user } = useAuth();
   const { data: myRequests = [], isLoading: loading } = useQuery({
     queryKey: ['myRequests'],
@@ -33,16 +34,17 @@ export default function MyRequests() {
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 mt-6">
  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-12 border-b border-editorial-border pb-8">
  <div>
- <span className="text-sm text-editorial-accent font-semibold mb-4 block ">Mes Projets</span>
- <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">Mes Demandes</h1>
+ <span className="text-sm text-editorial-accent font-semibold mb-4 block ">{t('auto.mes-projets')}</span>
+ <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">{t('auto.mes-demandes')}</h1>
  </div>
  <Link 
  to="/requests/new" 
  className="flex items-center gap-2 bg-editorial-accent hover:bg-editorial-accent/90 text-white px-6 py-3 text-sm font-semibold hover:opacity-90 transition-all"
  >
  <PlusCircle className="h-4 w-4" />
- Nouveau besoin
- </Link>
+ 
+                      {t('auto.nouveau-besoin')}
+                      </Link>
  </div>
 
  <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
@@ -84,11 +86,11 @@ export default function MyRequests() {
   <div className="mx-auto w-16 h-16 bg-secondary/30 rounded-full flex items-center justify-center mb-6">
   <Tag className="h-8 w-8 text-editorial-muted opacity-50" />
   </div>
-  <p className="text-editorial-fg font-semibold mb-2">Aucune demande</p>
-  <p className="text-editorial-muted text-sm mb-6">Vous n'avez pas encore de demande pour ce filtre.</p>
+  <p className="text-editorial-fg font-semibold mb-2">{t('auto.aucune-demande')}</p>
+  <p className="text-editorial-muted text-sm mb-6">{t('auto.vous-navez-pas-encore-de-deman')}</p>
   <Link to="/requests/new" className="inline-flex items-center gap-2 bg-editorial-accent text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-editorial-accent/90 transition-colors">
-  <PlusCircle className="h-4 w-4" /> Publier une demande
-  </Link>
+  <PlusCircle className="h-4 w-4" />  {t('auto.publier-une-demande')}
+                               </Link>
   </div>
  ) : (
  <div className="flex flex-col gap-4">
@@ -122,7 +124,8 @@ export default function MyRequests() {
   to={`/requests/${request.id}`}
   className="flex items-center gap-1.5 text-sm font-semibold text-editorial-muted hover:text-editorial-accent border border-editorial-border hover:border-editorial-accent rounded-lg px-3 py-1.5 transition-all shrink-0"
   >
-  Voir <ChevronRight className="h-3.5 w-3.5" />
+  
+                   {t('auto.voir')} <ChevronRight className="h-3.5 w-3.5" />
   </Link>
   </div>
   <div className="flex flex-wrap items-center gap-4 border-t border-editorial-border/50 pt-4">

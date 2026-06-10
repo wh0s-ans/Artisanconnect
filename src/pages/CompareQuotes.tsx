@@ -5,8 +5,10 @@ import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 import { proposals as proposalsApi, users as usersApi, chat as chatApi } from '../services/api';
 import { useDeviceType } from '../hooks/useDeviceType';
+import { useTranslation } from "react-i18next";
 
 export default function CompareQuotes() {
+    const { t } = useTranslation();
  const { id } = useParams();
  const navigate = useNavigate();
  const { isMobile, isTablet } = useDeviceType();
@@ -60,19 +62,20 @@ export default function CompareQuotes() {
  className="flex items-center gap-4 text-editorial-muted hover:text-editorial-accent mb-8 lg:mb-12 transition-colors text-sm font-semibold"
  >
  <ArrowLeft className="h-4 w-4" />
- Retour à la demande
- </button>
+ 
+                  {t('auto.retour-a-la-demande')}
+                  </button>
 
  <div className="mb-12 border-b border-editorial-border pb-8">
- <span className="text-sm text-editorial-accent font-semibold mb-4 block ">Décision</span>
- <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">Comparateur de Devis</h1>
+ <span className="text-sm text-editorial-accent font-semibold mb-4 block ">{t('auto.decision')}</span>
+ <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">{t('auto.comparateur-de-devis')}</h1>
  </div>
 
  {loading ? (
-   <div className="text-center py-12"><p>Chargement des devis...</p></div>
+   <div className="text-center py-12"><p>{t('auto.chargement-des-devis')}</p></div>
  ) : quotes.length === 0 ? (
    <div className="text-center py-12 text-editorial-muted bg-white border border-editorial-border rounded-lg p-12">
-      <p>Aucun devis reçu pour le moment.</p>
+      <p>{t('auto.aucun-devis-recu-pour-le-momen')}</p>
    </div>
  ) : (
  <div className={cn(
@@ -95,27 +98,27 @@ export default function CompareQuotes() {
  <h3 className=" text-xl font-medium">{quote.artisanName}</h3>
  <div className="flex items-center gap-2 mt-1">
  <Star className="h-3 w-3 fill-editorial-accent text-editorial-accent" />
- <span className="text-sm text-editorial-muted font-bold">{quote.rating} ({quote.reviews} avis)</span>
- {quote.verified && <span className="bg-green-100 text-green-800 text-[8px] font-semibold px-1.5 ml-1">Vérifié</span>}
+ <span className="text-sm text-editorial-muted font-bold">{quote.rating} ({quote.reviews}  {t('auto.avis')}</span>
+ {quote.verified && <span className="bg-green-100 text-green-800 text-[8px] font-semibold px-1.5 ml-1">{t('auto.verifie')}</span>}
  </div>
  </div>
  </div>
 
  <div className="space-y-4 mb-8 flex-grow">
  <div>
- <span className="text-xs font-medium text-editorial-muted font-bold block mb-1">Montant estimé</span>
+ <span className="text-xs font-medium text-editorial-muted font-bold block mb-1">{t('auto.montant-estime')}</span>
  <div className="text-3xl font-medium text-editorial-fg flex items-center gap-2">
  {quote.price} <Euro className="h-5 w-5 opacity-50" />
  </div>
  </div>
  <div>
- <span className="text-xs font-medium text-editorial-muted font-bold block mb-1">Délai d'intervention</span>
+ <span className="text-xs font-medium text-editorial-muted font-bold block mb-1">{t('auto.delai-dintervention')}</span>
  <div className="text-sm flex items-center gap-2 text-editorial-fg">
- <Clock className="h-4 w-4 opacity-50" />~ {quote.delay_days || '--'} jours
- </div>
+ <Clock className="h-4 w-4 opacity-50" />~ {quote.delay_days || '--'}  {t('auto.jours')}
+                      </div>
  </div>
  <div className="bg-secondary/10 p-4 border border-editorial-border rounded-lg shadow-sm">
- <span className="text-xs font-medium text-editorial-muted font-bold block mb-2">Message</span>
+ <span className="text-xs font-medium text-editorial-muted font-bold block mb-2">{t('auto.message')}</span>
  <p className="text-xs leading-relaxed text-editorial-muted">"{quote.message}"</p>
  </div>
  </div>
@@ -123,11 +126,13 @@ export default function CompareQuotes() {
  <div className="mt-auto space-y-3 pt-6 border-t border-editorial-border">
  <button onClick={() => handleAccept(quote)} className="w-full bg-editorial-accent hover:bg-editorial-accent/90 text-white py-3 text-sm font-semibold hover:opacity-90 flex items-center justify-center gap-2 rounded-md">
  <CheckCircle2 className="h-4 w-4" />
- Accepter ce devis
- </button>
+ 
+                  {t('auto.accepter-ce-devis')}
+                  </button>
  <Link to={`/artisan/${quote.artisan_id}`} className="block w-full text-center border border-editorial-border rounded-md shadow-sm py-3 text-sm font-bold text-editorial-fg hover:bg-secondary/5">
- Voir le profil complet
- </Link>
+ 
+                  {t('auto.voir-le-profil-complet')}
+                  </Link>
  </div>
  </motion.div>
  ))}

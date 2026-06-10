@@ -4,6 +4,7 @@ import { auth } from '../services/api';
 import { AlertCircle, ArrowRight, Eye, EyeOff, Hammer, User, CheckCircle2, MapPin, Briefcase, Lock, Mail, ChevronRight, Shield, Zap, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
+import { useTranslation } from "react-i18next";
 
 type Role = 'artisan' | 'client' | null;
 
@@ -13,6 +14,7 @@ const PROFESSIONS = [
 ];
 
 export default function SignupPage() {
+    const { t } = useTranslation();
   const [role, setRole] = useState<Role>(null);
   const [step, setStep] = useState<1 | 2>(1); // step 1 = role, step 2 = form
   const [email, setEmail] = useState('');
@@ -60,7 +62,7 @@ export default function SignupPage() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-editorial-fg/90 to-editorial-fg z-10" />
           <img
-            src="https://images.unsplash.com/photo-1601058268499-e52658b8ebf8?auto=format&fit=crop&q=80&w=1400"
+            src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=1400"
             alt="Artisan at work"
             className="w-full h-full object-cover opacity-25"
           />
@@ -70,7 +72,7 @@ export default function SignupPage() {
           <div className="bg-editorial-accent p-2">
             <Hammer className="h-5 w-5 text-white" />
           </div>
-          <span className="text-white text-lg font-semibold tracking-widest">ArtisanConnect</span>
+          <span className="text-white text-lg font-semibold tracking-widest">{t('auto.artisanconnect')}</span>
         </div>
 
         <div className="relative z-10 space-y-8">
@@ -111,7 +113,7 @@ export default function SignupPage() {
               )}>
                 {step > 1 ? <CheckCircle2 className="h-4 w-4" /> : '1'}
               </div>
-              <span className="text-xs font-semibold text-editorial-muted">Profil</span>
+              <span className="text-xs font-semibold text-editorial-muted">{t('auto.profil')}</span>
             </div>
             <div className="flex-1 h-px bg-editorial-border" />
             <div className="flex items-center gap-2">
@@ -121,7 +123,7 @@ export default function SignupPage() {
               )}>
                 2
               </div>
-              <span className="text-xs font-semibold text-editorial-muted">Informations</span>
+              <span className="text-xs font-semibold text-editorial-muted">{t('auto.informations')}</span>
             </div>
           </div>
 
@@ -135,9 +137,9 @@ export default function SignupPage() {
                 transition={{ duration: 0.3 }}
               >
                 <div className="mb-8">
-                  <span className="text-xs font-bold text-editorial-accent tracking-widest uppercase mb-2 block">Étape 1</span>
-                  <h1 className="text-4xl font-semibold text-editorial-fg tracking-tight">Qui êtes-vous ?</h1>
-                  <p className="mt-2 text-editorial-muted text-sm">Choisissez votre rôle pour personnaliser votre expérience</p>
+                  <span className="text-xs font-bold text-editorial-accent tracking-widest uppercase mb-2 block">{t('auto.etape-1')}</span>
+                  <h1 className="text-4xl font-semibold text-editorial-fg tracking-tight">{t('auto.qui-etes-vous')}</h1>
+                  <p className="mt-2 text-editorial-muted text-sm">{t('auto.choisissez-votre-role-pour-per')}</p>
                 </div>
 
                 <div className="grid gap-4">
@@ -151,8 +153,8 @@ export default function SignupPage() {
                       <User className="h-7 w-7 text-editorial-accent" />
                     </div>
                     <div className="flex-1">
-                      <div className="font-semibold text-editorial-fg text-lg group-hover:text-editorial-accent transition-colors">Je suis Client</div>
-                      <div className="text-editorial-muted text-sm mt-1">Je recherche des artisans qualifiés pour mes projets</div>
+                      <div className="font-semibold text-editorial-fg text-lg group-hover:text-editorial-accent transition-colors">{t('auto.je-suis-client')}</div>
+                      <div className="text-editorial-muted text-sm mt-1">{t('auto.je-recherche-des-artisans-qual')}</div>
                       <div className="flex flex-wrap gap-2 mt-3">
                         {['Publier des demandes', 'Comparer des devis', 'Suivi en temps réel'].map(f => (
                           <span key={f} className="text-[10px] font-semibold bg-secondary/50 text-editorial-muted px-2 py-0.5 rounded">{f}</span>
@@ -172,8 +174,8 @@ export default function SignupPage() {
                       <Hammer className="h-7 w-7 text-editorial-accent" />
                     </div>
                     <div className="flex-1">
-                      <div className="font-semibold text-editorial-fg text-lg group-hover:text-editorial-accent transition-colors">Je suis Artisan</div>
-                      <div className="text-editorial-muted text-sm mt-1">Je propose mes services et développe ma clientèle</div>
+                      <div className="font-semibold text-editorial-fg text-lg group-hover:text-editorial-accent transition-colors">{t('auto.je-suis-artisan')}</div>
+                      <div className="text-editorial-muted text-sm mt-1">{t('auto.je-propose-mes-services-et-dev')}</div>
                       <div className="flex flex-wrap gap-2 mt-3">
                         {['Profil vitrine', 'Gérer mes devis', 'Statistiques'].map(f => (
                           <span key={f} className="text-[10px] font-semibold bg-secondary/50 text-editorial-muted px-2 py-0.5 rounded">{f}</span>
@@ -194,19 +196,20 @@ export default function SignupPage() {
               >
                 <div className="mb-8 flex items-start justify-between">
                   <div>
-                    <span className="text-xs font-bold text-editorial-accent tracking-widest uppercase mb-2 block">Étape 2</span>
+                    <span className="text-xs font-bold text-editorial-accent tracking-widest uppercase mb-2 block">{t('auto.etape-2')}</span>
                     <h1 className="text-4xl font-semibold text-editorial-fg tracking-tight">
                       {role === 'client' ? 'Votre compte client' : 'Votre compte artisan'}
                     </h1>
-                    <p className="mt-2 text-editorial-muted text-sm">Remplissez vos informations pour créer votre espace</p>
+                    <p className="mt-2 text-editorial-muted text-sm">{t('auto.remplissez-vos-informations-po')}</p>
                   </div>
                   <button
                     type="button"
                     onClick={() => { setStep(1); setError(''); }}
                     className="text-xs text-editorial-muted hover:text-editorial-accent font-semibold border border-editorial-border rounded-lg px-3 py-2 transition-colors mt-1"
                   >
-                    ← Changer
-                  </button>
+                    
+                                                              {t('auto.changer')}
+                                                            </button>
                 </div>
 
                 {error && (
@@ -224,29 +227,29 @@ export default function SignupPage() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-[11px] uppercase tracking-widest font-bold text-editorial-muted flex items-center gap-1.5">
-                        <User className="h-3 w-3" /> Nom complet
-                      </label>
+                        <User className="h-3 w-3" />  {t('auto.nom-complet')}
+                                                                        </label>
                       <input
                         type="text"
                         required
                         value={displayName}
                         onChange={(e) => setDisplayName(e.target.value)}
                         className="w-full bg-white border border-editorial-border rounded-lg py-3 px-4 text-editorial-fg focus:outline-none focus:border-editorial-accent focus:ring-2 focus:ring-editorial-accent/10 transition-all placeholder:text-editorial-muted/40 text-sm"
-                        placeholder="Jean Dupont"
+                        placeholder={t('auto.jean-dupont')}
                         autoComplete="name"
                       />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[11px] uppercase tracking-widest font-bold text-editorial-muted flex items-center gap-1.5">
-                        <Mail className="h-3 w-3" /> Email
-                      </label>
+                        <Mail className="h-3 w-3" />  {t('auto.email')}
+                                                                        </label>
                       <input
                         type="email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-white border border-editorial-border rounded-lg py-3 px-4 text-editorial-fg focus:outline-none focus:border-editorial-accent focus:ring-2 focus:ring-editorial-accent/10 transition-all placeholder:text-editorial-muted/40 text-sm"
-                        placeholder="jean@email.com"
+                        placeholder={t('auto.jeanemailcom')}
                         autoComplete="email"
                       />
                     </div>
@@ -256,30 +259,30 @@ export default function SignupPage() {
                     {role === 'artisan' && (
                       <div className="space-y-1.5">
                         <label className="text-[11px] uppercase tracking-widest font-bold text-editorial-muted flex items-center gap-1.5">
-                          <Briefcase className="h-3 w-3" /> Profession
-                        </label>
+                          <Briefcase className="h-3 w-3" />  {t('auto.profession')}
+                                                                              </label>
                         <select
                           required
                           value={profession}
                           onChange={(e) => setProfession(e.target.value)}
                           className="w-full bg-white border border-editorial-border rounded-lg py-3 px-4 text-editorial-fg focus:outline-none focus:border-editorial-accent focus:ring-2 focus:ring-editorial-accent/10 transition-all text-sm"
                         >
-                          <option value="" disabled>Sélectionner...</option>
+                          <option value="" disabled>{t('auto.selectionner')}</option>
                           {PROFESSIONS.map(p => <option key={p} value={p}>{p}</option>)}
                         </select>
                       </div>
                     )}
                     <div className={cn("space-y-1.5", role === 'client' && "sm:col-span-2")}>
                       <label className="text-[11px] uppercase tracking-widest font-bold text-editorial-muted flex items-center gap-1.5">
-                        <MapPin className="h-3 w-3" /> Ville / Région
-                      </label>
+                        <MapPin className="h-3 w-3" />  {t('auto.ville-region')}
+                                                                        </label>
                       <input
                         type="text"
                         required
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         className="w-full bg-white border border-editorial-border rounded-lg py-3 px-4 text-editorial-fg focus:outline-none focus:border-editorial-accent focus:ring-2 focus:ring-editorial-accent/10 transition-all placeholder:text-editorial-muted/40 text-sm"
-                        placeholder="Paris, Lyon, Marseille..."
+                        placeholder={t('auto.paris-lyon-marseille')}
                         autoComplete="address-level2"
                       />
                     </div>
@@ -287,8 +290,8 @@ export default function SignupPage() {
 
                   <div className="space-y-1.5">
                     <label className="text-[11px] uppercase tracking-widest font-bold text-editorial-muted flex items-center gap-1.5">
-                      <Lock className="h-3 w-3" /> Mot de passe
-                    </label>
+                      <Lock className="h-3 w-3" />  {t('auto.mot-de-passe')}
+                                                                  </label>
                     <div className="relative">
                       <input
                         type={showPassword ? 'text' : 'password'}
@@ -297,7 +300,7 @@ export default function SignupPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="w-full bg-white border border-editorial-border rounded-lg py-3 px-4 pr-12 text-editorial-fg focus:outline-none focus:border-editorial-accent focus:ring-2 focus:ring-editorial-accent/10 transition-all placeholder:text-editorial-muted/40 text-sm"
-                        placeholder="Minimum 6 caractères"
+                        placeholder={t('auto.minimum-6-caracteres')}
                         autoComplete="new-password"
                       />
                       <button
@@ -336,20 +339,22 @@ export default function SignupPage() {
                       {loading ? (
                         <span className="flex items-center gap-2">
                           <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Création en cours...
-                        </span>
+                          
+                                                                                {t('auto.creation-en-cours')}
+                                                                              </span>
                       ) : (
                         <>
-                          <span>Créer mon compte</span>
+                          <span>{t('auto.creer-mon-compte')}</span>
                           <ArrowRight className="h-4 w-4" />
                         </>
                       )}
                     </button>
                     <p className="text-center text-editorial-muted text-xs mt-4">
-                      En vous inscrivant, vous acceptez nos{' '}
-                      <Link to="/terms" className="text-editorial-accent hover:underline">CGU</Link>
-                      {' '}et notre{' '}
-                      <Link to="/privacy" className="text-editorial-accent hover:underline">Politique de confidentialité</Link>
+                      
+                                                                    {t('auto.en-vous-inscrivant-vous-accept')}{' '}
+                      <Link to="/terms" className="text-editorial-accent hover:underline">{t('auto.cgu')}</Link>
+                      {' '}{t('auto.et-notre')}{' '}
+                      <Link to="/privacy" className="text-editorial-accent hover:underline">{t('auto.politique-de-confidentialite')}</Link>
                     </p>
                   </div>
                 </form>
@@ -359,10 +364,12 @@ export default function SignupPage() {
 
           <div className="mt-8 pt-6 border-t border-editorial-border text-center">
             <p className="text-editorial-muted text-sm">
-              Déjà inscrit ?{' '}
+              
+                                        {t('auto.deja-inscrit')}{' '}
               <Link to="/login" className="text-editorial-accent font-bold hover:underline">
-                Se connecter
-              </Link>
+                
+                                              {t('auto.se-connecter')}
+                                            </Link>
             </p>
           </div>
         </motion.div>

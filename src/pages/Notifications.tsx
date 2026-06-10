@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useAuth } from '../contexts/AuthContext';
 import { notifications as notifApi } from '../services/api';
+import { useTranslation } from "react-i18next";
 
 export default function Notifications() {
+    const { t } = useTranslation();
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -100,17 +102,18 @@ export default function Notifications() {
         <div className="flex justify-between items-end mb-8 border-b border-editorial-border pb-8">
           <div>
             <span className="text-sm text-editorial-accent font-semibold mb-3 flex items-center gap-2">
-              <Bell className="h-4 w-4" /> Activité
-            </span>
+              <Bell className="h-4 w-4" />  {t('auto.activite')}
+                                      </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-editorial-fg">
-              Notifications
-            </h1>
+              
+                                        {t('auto.notifications')}
+                                      </h1>
           </div>
           <div className="flex items-center gap-3">
             {unreadCount > 0 && (
               <>
                 <span className="bg-editorial-accent text-white text-xs font-bold px-3 py-1.5 rounded-full">
-                  {unreadCount} nouvelle{unreadCount > 1 ? 's' : ''}
+                  {unreadCount}  {t('auto.nouvelle')}{unreadCount > 1 ? 's' : ''}
                 </span>
                 <button
                   onClick={markAllAsRead}
@@ -118,8 +121,9 @@ export default function Notifications() {
                   className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-editorial-muted hover:text-editorial-accent border border-editorial-border rounded-lg px-3 py-1.5 transition-colors disabled:opacity-50"
                 >
                   <Check className="h-3.5 w-3.5" />
-                  Tout marquer lu
-                </button>
+                  
+                                                    {t('auto.tout-marquer-lu')}
+                                                  </button>
               </>
             )}
           </div>
@@ -148,8 +152,8 @@ export default function Notifications() {
             <div className="mx-auto w-16 h-16 bg-secondary/30 rounded-full flex items-center justify-center mb-6">
               <Bell className="h-8 w-8 text-editorial-muted opacity-50" />
             </div>
-            <p className="text-editorial-fg font-semibold mb-2">Tout est calme ici</p>
-            <p className="text-editorial-muted text-sm">Vous n'avez aucune notification pour le moment.</p>
+            <p className="text-editorial-fg font-semibold mb-2">{t('auto.tout-est-calme-ici')}</p>
+            <p className="text-editorial-muted text-sm">{t('auto.vous-navez-aucune-notification')}</p>
           </motion.div>
         ) : (
           <div className="space-y-2">
@@ -199,8 +203,9 @@ export default function Notifications() {
                         onClick={(e) => e.stopPropagation()}
                         className="inline-block mt-2 text-xs font-semibold text-editorial-accent hover:underline"
                       >
-                        Voir les détails →
-                      </a>
+                        
+                                                          {t('auto.voir-les-details')}
+                                                        </a>
                     )}
                   </div>
 

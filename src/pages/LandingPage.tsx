@@ -4,9 +4,11 @@ import { Hammer, CheckCircle, Star, Shield, Users, Search, ArrowRight } from 'lu
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function LandingPage() {
  const { t } = useTranslation();
+ const { user } = useAuth();
  const [openCategory, setOpenCategory] = useState<string | null>(null);
  const { hash } = useLocation();
 
@@ -28,10 +30,10 @@ export default function LandingPage() {
  const expertises = [
   { name: t('landing.expertises.plumb'), img: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800' },
   { name: t('landing.expertises.elec'), img: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=800' },
-  { name: t('landing.expertises.paint'), img: 'https://images.unsplash.com/photo-1589939705384-5185138a047a?auto=format&fit=crop&q=80&w=800' },
-  { name: t('landing.expertises.masonry'), img: 'https://images.unsplash.com/photo-1589939705384-5185138a047a?auto=format&fit=crop&q=80&w=800' },
-  { name: t('landing.expertises.carpentry'), img: 'https://images.unsplash.com/photo-1601058268499-e52658b8ebf8?auto=format&fit=crop&q=80&w=800' },
-  { name: t('landing.expertises.gardening'), img: 'https://images.unsplash.com/photo-1416879598056-f73ca256dba8?auto=format&fit=crop&q=80&w=800' },
+  { name: t('landing.expertises.paint'), img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800' },
+  { name: t('landing.expertises.masonry'), img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800' },
+  { name: t('landing.expertises.carpentry'), img: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=800' },
+  { name: t('landing.expertises.gardening'), img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800' },
  ];
 
  return (
@@ -39,13 +41,15 @@ export default function LandingPage() {
  {/* Hero Section */}
  <section className="relative pt-20 pb-24 lg:pt-40 lg:pb-52 border-b border-editorial-border">
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
- <div className="max-w-4xl">
+ <div className="lg:grid lg:grid-cols-[7fr_5fr] lg:gap-0 lg:items-center">
+ {/* Text column */}
+ <div>
  <motion.div 
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8 }}
  >
- <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-medium leading-[1.1] lg:leading-[0.9] text-editorial-fg ">
+ <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-[1.05] text-editorial-fg">
  {t('landing.hero.title1')} <br />
  <span className="text-secondary lg:text-editorial-accent decoration-1 underline-offset-8">{t('landing.hero.title2')}</span> <br />
  {t('landing.hero.title3')}
@@ -55,15 +59,15 @@ export default function LandingPage() {
  </p>
  <div className="mt-8 lg:mt-12 flex flex-col sm:flex-row gap-4 lg:gap-6 items-stretch sm:items-center">
  <Link
-  to="/signup"
+  to={user ? '/profile' : '/signup'}
   className="group inline-flex items-center justify-center gap-3 bg-editorial-accent hover:bg-editorial-accent/90 text-white text-sm font-semibold px-8 py-4 transition-all shadow-sm"
  >
   <Hammer className="h-4 w-4" />
-  {t('landing.hero.cta')}
+  {user ? t('nav.profile') || 'Mon espace' : t('landing.hero.cta')}
   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
  </Link>
  <Link
-  to="/login"
+  to={user ? (user.role === 'artisan' ? '/requests' : '/search') : '/login'}
   className="inline-flex items-center justify-center gap-2 border border-editorial-border hover:border-editorial-accent text-editorial-fg hover:text-editorial-accent text-sm font-semibold px-8 py-4 transition-all"
  >
   {t('landing.hero.explore')}
@@ -71,18 +75,17 @@ export default function LandingPage() {
  </div>
  </motion.div>
  </div>
- </div>
- 
- {/* Hero Image / Background */}
- <div className="absolute top-0 right-0 w-1/3 lg:w-5/12 h-full hidden lg:block overflow-hidden">
- <div className="absolute inset-0 bg-editorial-bg mix-blend-color z-10" />
- <div className="absolute inset-0 bg-gradient-to-r from-editorial-bg via-editorial-bg/80 to-transparent z-10" />
+ {/* Image column */}
+ <div className="hidden lg:block h-full min-h-[500px] overflow-hidden relative">
+ <div className="absolute inset-0 bg-gradient-to-r from-editorial-bg via-editorial-bg/60 to-transparent z-10" />
  <img 
- src="https://images.unsplash.com/photo-1503387762-592dea58ef23?auto=format&fit=crop&q=80&w=2000" 
+ src="/images/hero_workspace.png" 
  alt="Artisan workspace" 
  className="w-full h-full object-cover object-center grayscale-[30%]"
  referrerPolicy="no-referrer"
  />
+ </div>
+ </div>
  </div>
  </section>
 
@@ -118,7 +121,7 @@ export default function LandingPage() {
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-12 lg:mb-24">
  <h2 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg">{t('landing.expertises.title')}</h2>
- <Link to="/signup" className="text-sm text-editorial-muted hover:text-editorial-accent transition-colors pb-2 border-b border-editorial-border">
+ <Link to={user ? (user.role === 'artisan' ? '/requests' : '/search') : '/signup'} className="text-sm text-editorial-muted hover:text-editorial-accent transition-colors pb-2 border-b border-editorial-border">
  {t('landing.expertises.seeAll')}
  </Link>
  </div>
@@ -197,7 +200,7 @@ export default function LandingPage() {
  >
  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-zinc-950 via-zinc-900/60 to-transparent z-10" />
  <img 
- src="https://images.unsplash.com/photo-1603533867307-b354255e3c32?auto=format&fit=crop&q=80&w=1200"
+ src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200"
  alt="Artisan hands"
  className="absolute inset-0 w-full h-full object-cover grayscale"
  referrerPolicy="no-referrer"
@@ -233,19 +236,21 @@ export default function LandingPage() {
  </section>
 
  {/* Final CTA */}
- <section className="py-24 lg:py-40 bg-editorial-fg text-white rounded-md text-base">
+ <section className="py-24 lg:py-40 bg-editorial-fg dark-surface-section text-white rounded-md text-base">
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
  <h2 className="text-3xl sm:text-5xl lg:text-8xl font-semibold mb-8 lg:mb-16">
  {t('landing.cta.title1')} <br className="hidden sm:block" />
  {t('landing.cta.title2')} <span className="">{t('landing.cta.title3')}</span>
  </h2>
  <div className="flex flex-col sm:flex-row justify-center gap-6 lg:gap-8 items-center">
- <Link to="/signup" className="bg-editorial-accent hover:bg-editorial-accent/90 text-white w-full sm:w-auto px-8 lg:px-12 py-4 lg:py-3 text-xs lg:text-sm font-semibold hover:opacity-90 transition-all">
- {t('landing.cta.button')}
+ <Link to={user ? '/profile' : '/signup'} className="bg-editorial-accent hover:bg-editorial-accent/90 text-white w-full sm:w-auto px-8 lg:px-12 py-4 lg:py-3 text-xs lg:text-sm font-semibold hover:opacity-90 transition-all">
+ {user ? (t('nav.profile') || 'Mon espace') : t('landing.cta.button')}
  </Link>
- <Link to="/login" className="text-white text-xs lg:text-sm font-bold border-b border-editorial-bg/30 pb-2 hover:border-editorial-bg transition-all mt-4 sm:mt-0">
- {t('landing.cta.login')}
- </Link>
+ {!user && (
+   <Link to="/login" className="text-white text-xs lg:text-sm font-bold border-b border-editorial-bg/30 pb-2 hover:border-editorial-bg transition-all mt-4 sm:mt-0">
+   {t('landing.cta.login')}
+   </Link>
+ )}
  </div>
  </div>
  </section>

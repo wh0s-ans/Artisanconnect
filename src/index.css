@@ -18,6 +18,24 @@
   --color-editorial-border: #ddc0b8;
 }
 
+.dark {
+  --color-primary: #bc5634;
+  --color-secondary: #3b2c28;
+  --color-accent: #e6754a;
+  --color-charcoal: #f0ece8;
+  --color-cream: #161412;
+  --color-editorial-muted: #a09286;
+  --color-editorial-border: #3b2c28;
+  /* Dark surface for inverted sections (like CTA which uses bg-editorial-fg) */
+  --color-dark-surface: #1e1a18;
+}
+
+/* Sections that use bg-editorial-fg as a dark surface invert in dark mode */
+.dark .dark-surface-section {
+  background-color: var(--color-dark-surface) !important;
+  color: #f0ece8;
+}
+
 @layer base {
   html, body {
     position: relative;

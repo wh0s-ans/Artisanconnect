@@ -6,6 +6,7 @@ import { cn } from '../lib/utils';
 import { useTranslation } from 'react-i18next';
 import { useUnreadCounts } from '../hooks/useUnreadCounts';
 import LanguageSelector from './LanguageSelector';
+import ThemeToggle from './ThemeToggle';
 
  export default function Navbar() {
   const { user } = useAuth();
@@ -31,7 +32,7 @@ import LanguageSelector from './LanguageSelector';
  type="button"
  onClick={() => navigate(-1)}
  className="p-2 hover:bg-black/5 rounded-full transition-colors text-editorial-fg mr-1 flex items-center justify-center h-10 w-10 shrink-0"
- aria-label="Retour"
+ aria-label={t('auto.retour')}
  >
  <ArrowLeft className="h-5 w-5" />
  </button>
@@ -40,7 +41,7 @@ import LanguageSelector from './LanguageSelector';
  <div className="bg-editorial-accent hover:bg-editorial-accent/90 p-1.5 sm:p-2">
  <Hammer className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
  </div>
- <span className="text-base sm:text-lg lg:text-xl tracking-[0.1em] sm:tracking-[0.2em] ">ArtisanConnect</span>
+ <span className="text-base sm:text-lg lg:text-xl tracking-[0.1em] sm:tracking-[0.2em] ">{t('auto.artisanconnect')}</span>
  </Link>
  
  {/* Public Links (Visible out of session, hidden on small screens) */}
@@ -63,37 +64,44 @@ import LanguageSelector from './LanguageSelector';
  <>
  <Link 
  to="/dashboard" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <LayoutDashboard className="h-4 w-4" />
+ <LayoutDashboard className="h-4 w-4 shrink-0" />
  <span>{t('nav.dashboard')}</span>
  </Link>
+ 
+ <div className="hidden lg:block w-px h-4 bg-editorial-border mx-1 shrink-0" />
+ 
  <Link 
  to="/search" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <Search className="h-4 w-4" />
+ <Search className="h-4 w-4 shrink-0" />
  <span>{t('nav.findArtisan')}</span>
  </Link>
+ 
+ <div className="hidden lg:block w-px h-4 bg-editorial-border mx-1 shrink-0" />
+ 
  <Link 
  to="/my-requests" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <LayoutDashboard className="h-4 w-4" />
+ <LayoutDashboard className="h-4 w-4 shrink-0" />
  <span>{t('nav.requests')}</span>
  </Link>
  <Link 
  to="/my-projects" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <Briefcase className="h-4 w-4" />
+ <Briefcase className="h-4 w-4 shrink-0" />
  <span>{t('nav.projects')}</span>
  </Link>
+ 
  <Link 
  to="/requests/new" 
- className="hidden xl:flex items-center gap-2 border border-editorial-accent text-editorial-accent hover:bg-editorial-accent hover:bg-editorial-accent/90 hover:text-white px-4 py-2 rounded-md text-sm font-medium transition-all font-bold"
+ className="hidden xl:flex items-center gap-1.5 ml-2 border border-editorial-accent bg-editorial-accent/5 text-editorial-accent hover:bg-editorial-accent hover:text-white px-4 py-1.5 rounded-md text-sm font-bold transition-all whitespace-nowrap"
  >
- <PlusCircle className="h-4 w-4" />
+ <PlusCircle className="h-4 w-4 shrink-0" />
  <span>{t('nav.publish')}</span>
  </Link>
  </>
@@ -103,45 +111,51 @@ import LanguageSelector from './LanguageSelector';
  <>
  <Link 
  to="/dashboard" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <LayoutDashboard className="h-4 w-4" />
+ <LayoutDashboard className="h-4 w-4 shrink-0" />
  <span>{t('nav.dashboard')}</span>
  </Link>
+
+ <div className="hidden lg:block w-px h-4 bg-editorial-border mx-1 shrink-0" />
+
  <Link 
  to="/requests" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <Search className="h-4 w-4" />
+ <Search className="h-4 w-4 shrink-0" />
  <span>{t('nav.opportunities')}</span>
  </Link>
  <Link 
  to="/my-quotes" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <Briefcase className="h-4 w-4" />
+ <Briefcase className="h-4 w-4 shrink-0" />
  <span>{t('nav.quotes')}</span>
  </Link>
  <Link 
  to="/my-projects" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <Hammer className="h-4 w-4" />
+ <Hammer className="h-4 w-4 shrink-0" />
  <span>{t('nav.sites')}</span>
+ </Link>
+
+ <div className="hidden lg:block w-px h-4 bg-editorial-border mx-1 shrink-0" />
+
+ <Link 
+ to="/stats" 
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
+ >
+ <PieChart className="h-4 w-4 shrink-0" />
+ <span>{t('nav.stats')}</span>
  </Link>
  <Link 
  to="/my-reviews" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
+ className="hidden lg:flex items-center gap-1.5 text-editorial-muted hover:text-editorial-accent text-sm font-semibold transition-colors whitespace-nowrap"
  >
- <Star className="h-4 w-4" />
+ <Star className="h-4 w-4 shrink-0" />
  <span>{t('nav.reviews')}</span>
- </Link>
- <Link 
- to="/stats" 
- className="hidden lg:flex items-center gap-2 text-editorial-muted hover:text-editorial-accent text-sm font-medium transition-colors font-semibold"
- >
- <PieChart className="h-4 w-4" />
- <span>{t('nav.stats')}</span>
  </Link>
  </>
  )}
@@ -172,7 +186,10 @@ import LanguageSelector from './LanguageSelector';
  {unreadNotifications > 0 && <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-500 border border-editorial-bg"></span>}
  </Link>
  
- <LanguageSelector />
+ <div className="flex items-center">
+  <LanguageSelector />
+  <ThemeToggle />
+ </div>
 
  <div className="h-8 w-[1px] bg-editorial-border mx-2 hidden lg:block" />
 
@@ -198,15 +215,18 @@ import LanguageSelector from './LanguageSelector';
  <button 
  onClick={handleSignOut}
  className="text-editorial-muted hover:text-red-500 p-2 transition-colors"
- title="Déconnexion"
+ title={t('auto.deconnexion')}
  >
  <LogOut className="h-5 w-5" />
  </button>
  </div>
  </>
  ) : (
- <div className="flex items-center gap-3 lg:gap-8">
- <LanguageSelector />
+ <div className="flex items-center gap-1 sm:gap-3 lg:gap-8">
+  <div className="flex items-center">
+   <LanguageSelector />
+   <ThemeToggle />
+  </div>
  <Link 
  to="/login" 
  className="hidden sm:flex h-8 w-8 items-center justify-center text-editorial-muted hover:text-editorial-accent hover:bg-black/5 rounded-full transition-colors"

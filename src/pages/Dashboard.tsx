@@ -3,6 +3,7 @@ import ClientDashboard from '../components/ClientDashboard';
 import ArtisanDashboard from '../components/ArtisanDashboard';
 import { motion } from 'motion/react';
 import { Hammer } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 function DashboardSkeleton() {
   return (
@@ -40,6 +41,7 @@ function DashboardSkeleton() {
 }
 
 export default function Dashboard() {
+    const { t } = useTranslation();
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -56,16 +58,18 @@ export default function Dashboard() {
         <div className="h-16 w-16 bg-editorial-accent/10 rounded-2xl flex items-center justify-center">
           <Hammer className="h-8 w-8 text-editorial-accent" />
         </div>
-        <p className="text-editorial-fg font-semibold text-lg">Impossible de charger votre profil</p>
+        <p className="text-editorial-fg font-semibold text-lg">{t('auto.impossible-de-charger-votre-pr')}</p>
         <p className="text-editorial-muted text-sm text-center max-w-sm">
-          Une erreur est survenue lors de la récupération de vos données. Veuillez rafraîchir la page.
-        </p>
+          
+                          {t('auto.une-erreur-est-survenue-lors-d')}
+                        </p>
         <button
           onClick={() => window.location.reload()}
           className="mt-2 px-6 py-2.5 bg-editorial-accent text-white rounded-lg font-semibold text-sm hover:bg-editorial-accent/90 transition-colors"
         >
-          Rafraîchir
-        </button>
+          
+                          {t('auto.rafraichir')}
+                        </button>
       </div>
     );
   }

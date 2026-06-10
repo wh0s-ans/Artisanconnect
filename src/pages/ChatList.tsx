@@ -4,8 +4,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { MessageSquare, User, ChevronRight, Clock } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useTranslation } from "react-i18next";
 
 export default function ChatList() {
+    const { t } = useTranslation();
  const { user } = useAuth();
  const [chats, setChats] = useState<any[]>([]);
  const [loading, setLoading] = useState(true);
@@ -45,8 +47,8 @@ export default function ChatList() {
      <div className="max-w-4xl mx-auto px-4">
        <div className="mb-16 pb-8 border-b border-editorial-border flex items-end justify-between">
          <div>
-           <span className="text-sm text-editorial-accent font-semibold mb-4 block">Correspondances</span>
-           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-editorial-fg leading-tight">Messagerie Privée</h1>
+           <span className="text-sm text-editorial-accent font-semibold mb-4 block">{t('auto.correspondances')}</span>
+           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-editorial-fg leading-tight">{t('auto.messagerie-privee')}</h1>
          </div>
          <div className="h-12 w-12 border border-editorial-border rounded-lg shadow-sm bg-white rounded-xl shadow-sm flex items-center justify-center">
            <MessageSquare className="h-5 w-5 text-editorial-accent" />
@@ -60,8 +62,8 @@ export default function ChatList() {
        ) : chats.length === 0 ? (
          <div className="bg-white rounded-xl shadow-sm border border-dashed border-editorial-border rounded-lg p-24 text-center grayscale opacity-50">
            <MessageSquare className="h-12 w-12 text-editorial-muted mx-auto mb-6" />
-           <h3 className="text-2xl font-semibold text-editorial-fg mb-4">Aucune conversation archivée</h3>
-           <p className="text-editorial-muted text-sm">Les échanges avec vos futurs collaborateurs apparaîtront ici.</p>
+           <h3 className="text-2xl font-semibold text-editorial-fg mb-4">{t('auto.aucune-conversation-archivee')}</h3>
+           <p className="text-editorial-muted text-sm">{t('auto.les-echanges-avec-vos-futurs-c')}</p>
          </div>
        ) : (
          <div className="grid gap-px bg-editorial-border border border-editorial-border rounded-lg shadow-sm">

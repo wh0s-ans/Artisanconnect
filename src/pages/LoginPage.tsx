@@ -46,15 +46,16 @@ export default function LoginPage() {
           <div className="bg-editorial-accent p-2">
             <Hammer className="h-5 w-5 text-white" />
           </div>
-          <span className="text-white text-lg font-semibold tracking-widest">ArtisanConnect</span>
+          <span className="text-white text-lg font-semibold tracking-widest">{t('auto.artisanconnect')}</span>
         </div>
 
         {/* Quote */}
         <div className="relative z-10">
           <p className="text-4xl font-semibold text-white leading-snug mb-6">
-            "L'excellence n'est pas un acte, <br />c'est une habitude."
-          </p>
-          <span className="text-white/50 text-sm font-medium">— Aristote</span>
+            
+                                  {t('auto.lexcellence-nest-pas-un-acte')} <br />{t('auto.cest-une-habitude')}
+                                </p>
+          <span className="text-white/50 text-sm font-medium">{t('auto.aristote')}</span>
         </div>
 
         {/* Stats row */}
@@ -83,14 +84,17 @@ export default function LoginPage() {
           {/* Header */}
           <div className="mb-10">
             <span className="text-xs font-bold text-editorial-accent tracking-widest uppercase mb-3 block">
-              Espace privé
-            </span>
+              
+                                        {t('auto.espace-prive')}
+                                      </span>
             <h1 className="text-4xl font-semibold text-editorial-fg tracking-tight">
-              Bienvenue
-            </h1>
+              
+                                        {t('auto.bienvenue')}
+                                      </h1>
             <p className="mt-2 text-editorial-muted text-sm">
-              Connectez-vous pour accéder à votre espace
-            </p>
+              
+                                        {t('auto.connectez-vous-pour-acceder-a')}
+                                      </p>
           </div>
 
           <form onSubmit={handleEmailLogin} className="space-y-5">
@@ -107,23 +111,25 @@ export default function LoginPage() {
 
             <div className="space-y-1.5">
               <label className="block text-[11px] uppercase tracking-widest font-bold text-editorial-muted">
-                Email
-              </label>
+                
+                                              {t('auto.email')}
+                                            </label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-white border border-editorial-border rounded-lg py-3.5 px-4 text-editorial-fg focus:outline-none focus:border-editorial-accent focus:ring-2 focus:ring-editorial-accent/10 transition-all placeholder:text-editorial-muted/40 text-sm"
-                placeholder="votre@email.com"
+                placeholder={t('auto.votreemailcom')}
                 autoComplete="email"
               />
             </div>
 
             <div className="space-y-1.5">
               <label className="block text-[11px] uppercase tracking-widest font-bold text-editorial-muted">
-                Mot de passe
-              </label>
+                
+                                              {t('auto.mot-de-passe')}
+                                            </label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -147,8 +153,9 @@ export default function LoginPage() {
 
             <div className="flex justify-end">
               <Link to="/forgot-password" className="text-xs font-semibold text-editorial-muted hover:text-editorial-accent transition-colors">
-                Mot de passe oublié ?
-              </Link>
+                
+                                              {t('auto.mot-de-passe-oublie')}
+                                            </Link>
             </div>
 
             <button
@@ -159,8 +166,9 @@ export default function LoginPage() {
               {loading ? (
                 <span className="flex items-center gap-2">
                   <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Connexion...
-                </span>
+                  
+                                                    {t('auto.connexion')}
+                                                  </span>
               ) : (
                 <>
                   <span>{t('nav.login')}</span>
@@ -172,7 +180,8 @@ export default function LoginPage() {
 
           <div className="mt-8 pt-8 border-t border-editorial-border text-center">
             <p className="text-editorial-muted text-sm">
-              Pas encore de compte ?{' '}
+              
+                                        {t('auto.pas-encore-de-compte')}{' '}
               <Link to="/signup" className="text-editorial-accent font-bold hover:underline">
                 {t('nav.signup')}
               </Link>

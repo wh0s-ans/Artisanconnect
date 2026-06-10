@@ -53,7 +53,7 @@ import { motion, AnimatePresence } from 'motion/react';
   <span className={cn(
     "text-xs mt-1.5 transition-all text-center",
    drawerOpen ? "font-bold text-editorial-accent" : "font-semibold text-editorial-muted"
-  )}>Plus</span>
+  )}>{t('auto.plus')}</span>
  </button>
  </>
  )}
@@ -90,7 +90,7 @@ import { motion, AnimatePresence } from 'motion/react';
             <DrawerItem to="/my-reviews" icon={<Star />} label={t('nav.reviews') === 'Avis' ? 'Mes Avis' : t('nav.reviews')} onClick={() => setDrawerOpen(false)} />
             <DrawerItem to="/stats" icon={<PieChart />} label={t('nav.stats') === 'Stats' ? 'Statistiques' : t('nav.stats')} onClick={() => setDrawerOpen(false)} />
             <DrawerItem to="/profile" icon={<User />} label={t('nav.profile') === 'Profil' ? 'Mon Profil' : t('nav.profile')} onClick={() => setDrawerOpen(false)} />
-            <DrawerItem to="/notifications" icon={<Bell />} label="Notifications" onClick={() => setDrawerOpen(false)} />
+            <DrawerItem to="/notifications" icon={<Bell />} label={t('auto.notifications')} onClick={() => setDrawerOpen(false)} />
             {user?.role === "admin" && <DrawerItem to="/admin" icon={<ShieldAlert />} label={t('nav.admin')} onClick={() => setDrawerOpen(false)} />}
           </>
         ) : (
@@ -98,7 +98,7 @@ import { motion, AnimatePresence } from 'motion/react';
             <DrawerItem to="/dashboard" icon={<LayoutDashboard />} label={t('nav.dashboard')} onClick={() => setDrawerOpen(false)} />
             <DrawerItem to="/my-requests" icon={<ClipboardList />} label={t('nav.requests') === 'Demandes' ? 'Mes Demandes' : t('nav.requests')} onClick={() => setDrawerOpen(false)} />
             <DrawerItem to="/my-projects" icon={<Briefcase />} label={t('nav.projects') === 'Projets' ? 'Mes Projets' : t('nav.projects')} onClick={() => setDrawerOpen(false)} />
-            <DrawerItem to="/notifications" icon={<Bell />} label="Notifications" onClick={() => setDrawerOpen(false)} />
+            <DrawerItem to="/notifications" icon={<Bell />} label={t('auto.notifications')} onClick={() => setDrawerOpen(false)} />
             <DrawerItem to="/profile" icon={<User />} label={t('nav.profile') === 'Profil' ? 'Mon Profil' : t('nav.profile')} onClick={() => setDrawerOpen(false)} />
             {user?.role === "admin" && <DrawerItem to="/admin" icon={<ShieldAlert />} label={t('nav.admin')} onClick={() => setDrawerOpen(false)} />}
           </>

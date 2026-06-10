@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import { ClipboardList, ChevronRight, Clock, MapPin, Euro } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
+import { useTranslation } from "react-i18next";
 
 export default function MyQuotes() {
+    const { t } = useTranslation();
  const { user } = useAuth();
  const [myProposals, setMyProposals] = useState<any[]>([]);
  const [loading, setLoading] = useState(true);
@@ -36,15 +38,15 @@ export default function MyQuotes() {
  }, [user]);
 
  if (user?.role !== 'artisan') {
- return <div className="min-h-screen pt-24 text-center">Accès non autorisé</div>;
+ return <div className="min-h-screen pt-24 text-center">{t('auto.acces-non-autorise')}</div>;
  }
 
  return (
  <div className="min-h-screen bg-editorial-bg py-8 pb-24 lg:pb-8">
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 mt-6">
  <div className="mb-12 border-b border-editorial-border pb-8">
- <span className="text-sm text-editorial-accent font-semibold mb-4 block ">Mes Propositions</span>
- <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">Historique des Devis</h1>
+ <span className="text-sm text-editorial-accent font-semibold mb-4 block ">{t('auto.mes-propositions')}</span>
+ <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg ">{t('auto.historique-des-devis')}</h1>
  </div>
 
  {loading ? (
@@ -54,10 +56,11 @@ export default function MyQuotes() {
  ) : myProposals.length === 0 ? (
  <div className="bg-secondary/5 border border-dashed border-editorial-border rounded-lg p-8 lg:p-20 text-center">
  <ClipboardList className="h-12 w-12 text-editorial-muted mx-auto mb-6 opacity-30" />
- <p className="text-editorial-muted ">Vous n'avez pas encore envoyé de propositions.</p>
+ <p className="text-editorial-muted ">{t('auto.vous-navez-pas-encore-envoye-d')}</p>
  <Link to="/dashboard" className="text-editorial-accent text-sm font-bold mt-4 inline-block pb-1 border-b border-editorial-accent">
- Parcourir les nouveaux besoins
- </Link>
+ 
+                              {t('auto.parcourir-les-nouveaux-besoins')}
+                              </Link>
  </div>
  ) : (
  <div className="flex flex-col gap-4 sm:grid sm:gap-px sm:bg-editorial-border sm:border sm:border-editorial-border rounded-lg sm:overflow-hidden">
@@ -91,7 +94,8 @@ export default function MyQuotes() {
  <div className="flex flex-wrap gap-4 lg:gap-8 text-sm lg:text-[12px] text-editorial-muted border-t border-editorial-border pt-4 lg:pt-6">
  <div className="flex items-center gap-2">
  <Euro className="h-4 w-4" />
- Proposition: {proposal.price} €
+ 
+                      {t('auto.proposition')} {proposal.price} €
  </div>
  {proposal.request && (
  <div className="flex items-center gap-2">

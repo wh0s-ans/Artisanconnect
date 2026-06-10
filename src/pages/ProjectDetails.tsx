@@ -3,8 +3,10 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
+import { useTranslation } from "react-i18next";
 
 export default function ProjectDetails() {
+    const { t } = useTranslation();
  const { id } = useParams();
 
  return (
@@ -15,8 +17,9 @@ export default function ProjectDetails() {
  className="flex items-center gap-4 text-editorial-muted hover:text-editorial-accent mb-8 lg:mb-12 transition-colors text-sm font-semibold"
  >
  <ArrowLeft className="h-4 w-4" />
- Retour
- </button>
+ 
+                  {t('auto.retour')}
+                  </button>
 
  <motion.div 
   initial={{ opacity: 0, y: 15 }} 
@@ -27,18 +30,20 @@ export default function ProjectDetails() {
  <div className="flex items-center gap-4 mb-4">
  <span className="bg-blue-100 text-blue-800 border border-blue-200 px-3 py-1 text-sm font-semibold rounded-full flex items-center gap-2">
  <span className="w-1.5 h-1.5 rounded-full bg-editorial-accent hover:bg-editorial-accent/90 animate-pulse"></span>
- En cours
- </span>
- <span className="text-editorial-muted text-xs font-bold">Projet #{id?.substring(0, 8) || '123456'}</span>
+ 
+                          {t('auto.en-cours')}
+                          </span>
+ <span className="text-editorial-muted text-xs font-bold">{t('auto.projet')}{id?.substring(0, 8) || '123456'}</span>
  </div>
  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg mb-6">
- Rénovation Électrique Salon
- </h1>
+ 
+                      {t('auto.renovation-electrique-salon')}
+                      </h1>
  <div className="flex items-center gap-4">
  <div className="h-10 w-10 bg-secondary/20 rounded-full border border-editorial-border rounded-lg shadow-sm"></div>
  <div>
- <div className="text-sm font-medium">Réalisé par <span className="font-bold">Youssef A.</span></div>
- <div className="text-sm text-editorial-muted mt-1">Électricien Artisan</div>
+ <div className="text-sm font-medium">{t('auto.realise-par')} <span className="font-bold">{t('auto.youssef-a')}</span></div>
+ <div className="text-sm text-editorial-muted mt-1">{t('auto.electricien-artisan')}</div>
  </div>
  </div>
  </motion.div>
@@ -51,7 +56,7 @@ export default function ProjectDetails() {
  >
  <div className="md:col-span-2 space-y-8">
  <div className="bg-white border border-editorial-border rounded-lg shadow-sm p-6 lg:p-8">
- <h3 className="text-sm font-semibold mb-6 text-editorial-muted border-b border-editorial-border pb-3">Avancement</h3>
+ <h3 className="text-sm font-semibold mb-6 text-editorial-muted border-b border-editorial-border pb-3">{t('auto.avancement')}</h3>
  
  <div className="space-y-6 relative before:absolute before:inset-0 before:ml-4 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-editorial-border">
  <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
@@ -60,10 +65,10 @@ export default function ProjectDetails() {
  </div>
  <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] bg-secondary/10 p-4 border border-editorial-border rounded-lg shadow-sm">
  <div className="flex justify-between items-center mb-1">
- <div className="font-bold text-sm">Devis accepté</div>
- <time className="text-sm text-editorial-muted font-mono">Hier</time>
+ <div className="font-bold text-sm">{t('auto.devis-accepte')}</div>
+ <time className="text-sm text-editorial-muted font-mono">{t('auto.hier')}</time>
  </div>
- <div className="text-xs text-editorial-muted ">Montant de 450€ validé.</div>
+ <div className="text-xs text-editorial-muted ">{t('auto.montant-de-450euro-valide')}</div>
  </div>
  </div>
 
@@ -73,10 +78,10 @@ export default function ProjectDetails() {
  </div>
  <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] bg-white p-4 border border-editorial-accent shadow-sm">
  <div className="flex justify-between items-center mb-1">
- <div className="font-bold text-sm text-editorial-accent">Travaux en cours</div>
- <time className="text-sm text-editorial-muted font-mono">Aujourd'hui</time>
+ <div className="font-bold text-sm text-editorial-accent">{t('auto.travaux-en-cours')}</div>
+ <time className="text-sm text-editorial-muted font-mono">{t('auto.aujourdhui')}</time>
  </div>
- <div className="text-xs text-editorial-muted">L'artisan est sur place.</div>
+ <div className="text-xs text-editorial-muted">{t('auto.lartisan-est-sur-place')}</div>
  </div>
  </div>
 
@@ -85,8 +90,8 @@ export default function ProjectDetails() {
  <div className="w-2 h-2 rounded-full bg-editorial-muted"></div>
  </div>
  <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] bg-white p-4 border border-editorial-border rounded-lg shadow-sm">
- <div className="font-bold text-sm">Finition & Validation</div>
- <div className="text-xs text-editorial-muted">À venir</div>
+ <div className="font-bold text-sm">{t('auto.finition-and-validation')}</div>
+ <div className="text-xs text-editorial-muted">{t('auto.a-venir')}</div>
  </div>
  </div>
  </div>
@@ -94,32 +99,33 @@ export default function ProjectDetails() {
  
  <div className="flex gap-4">
  <button className="bg-editorial-fg text-white rounded-md text-base px-6 py-4 text-sm font-medium hover:bg-zinc-800 transition-colors w-full">
- Marquer comme terminé
- </button>
+ 
+                              {t('auto.marquer-comme-termine')}
+                              </button>
  </div>
  </div>
 
  <div className="space-y-6">
  <div className="bg-secondary/10 border border-editorial-border rounded-lg shadow-sm p-6 shadow-sm">
- <h3 className="text-sm font-semibold mb-4 text-editorial-muted border-b border-editorial-border pb-3">Actions</h3>
+ <h3 className="text-sm font-semibold mb-4 text-editorial-muted border-b border-editorial-border pb-3">{t('auto.actions')}</h3>
  <Link to="/chats" className="flex items-center gap-3 w-full bg-white border border-editorial-border rounded-lg shadow-sm p-4 hover:border-editorial-accent transition-colors text-sm font-bold text-editorial-fg">
- <MessageSquare className="h-4 w-4" /> Contacter l'artisan
- </Link>
+ <MessageSquare className="h-4 w-4" />  {t('auto.contacter-lartisan')}
+                              </Link>
  </div>
 
  <div className="bg-editorial-bg border border-editorial-border rounded-lg shadow-sm p-6">
- <h3 className="text-sm font-semibold mb-4 text-editorial-muted border-b border-editorial-border pb-3">Résumé du Devis</h3>
+ <h3 className="text-sm font-semibold mb-4 text-editorial-muted border-b border-editorial-border pb-3">{t('auto.resume-du-devis')}</h3>
  <div className="space-y-3 pt-2">
  <div className="flex justify-between items-center text-sm">
- <span className="text-editorial-muted">Main d'oeuvre</span>
+ <span className="text-editorial-muted">{t('auto.main-doeuvre')}</span>
  <span className="font-medium">250 €</span>
  </div>
  <div className="flex justify-between items-center text-sm">
- <span className="text-editorial-muted">Matériel</span>
+ <span className="text-editorial-muted">{t('auto.materiel')}</span>
  <span className="font-medium">200 €</span>
  </div>
  <div className="flex justify-between items-center font-bold border-t border-editorial-border pt-3 mt-3">
- <span>Total</span>
+ <span>{t('auto.total')}</span>
  <span className="text-lg text-editorial-accent">450 €</span>
  </div>
  </div>
