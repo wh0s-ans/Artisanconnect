@@ -47,25 +47,30 @@ export default function RequestDetails() {
         setRequest(reqData);
 
         if (user) {
-          const propsData = await proposalsApi.forRequest(id);
-          const proposalDocs = await Promise.all(propsData.map(async (pDoc: any) => {
-            let artisanName = 'Artisan inconnu';
-            try {
-              const artDoc = await usersApi.getPublicProfile(pDoc.artisan_id);
-              artisanName = artDoc.display_name;
-            } catch (e) {}
-            return { 
-              id: pDoc.id, 
-              ...pDoc,
-              artisanId: pDoc.artisan_id,
-              clientId: reqData.client_id,
-              estimatedDays: pDoc.delay_days,
-              artisanName
-            };
-          }));
-          setProposals(proposalDocs);
+          try {
+            const propsData = await proposalsApi.forRequest(id);
+            const proposalDocs = await Promise.all(propsData.map(async (pDoc: any) => {
+              let artisanName = 'Artisan inconnu';
+              try {
+                const artDoc = await usersApi.getPublicProfile(pDoc.artisan_id);
+                artisanName = artDoc.display_name;
+              } catch (e) {}
+              return { 
+                id: pDoc.id, 
+                ...pDoc,
+                artisanId: pDoc.artisan_id,
+                clientId: reqData.client_id,
+                estimatedDays: pDoc.delay_days,
+                artisanName
+              };
+            }));
+            setProposals(proposalDocs);
+          } catch (propError) {
+            console.error('Failed to load proposals:', propError);
+          }
         }
       } catch (error) {
+        console.error('Failed to load request:', error);
         navigate('/dashboard');
       } finally {
         setLoading(false);
