@@ -144,9 +144,9 @@ export default function RequestDetails() {
  <div className="flex flex-wrap items-center gap-4 lg:gap-6 mb-6 lg:mb-8">
  <span className={cn(
  "text-sm font-semibold ",
- request.status === 'open' ? "text-amber-500" : "text-editorial-accent"
+ (request.status === 'open' || request.status === 'pending') ? "text-amber-500" : "text-editorial-accent"
  )}>
- • {request.status === 'open' ? 'Étude de marché' : 'Contrat Assigné'}
+ • {(request.status === 'open' || request.status === 'pending') ? 'Étude de marché' : 'Contrat Assigné'}
  </span>
  <span className="h-4 w-px bg-editorial-border" />
  <span className="text-editorial-muted text-sm font-bold">
@@ -232,7 +232,7 @@ export default function RequestDetails() {
  </div>
  <p className="text-editorial-muted text-sm leading-relaxed mb-8 lg:mb-10 ">{proposal.message}</p>
  
- {isOwner && request.status === 'open' && proposal.status === 'pending' && (
+ {isOwner && (request.status === 'open' || request.status === 'pending') && proposal.status === 'pending' && (
  <button 
  onClick={() => handleAcceptProposal(proposal)}
  className="w-full py-4 lg:py-3 border border-editorial-accent text-editorial-accent text-sm font-semibold hover:bg-editorial-accent hover:text-white transition-all flex items-center justify-center gap-4"
@@ -264,7 +264,7 @@ export default function RequestDetails() {
   className="md:col-span-4"
  >
  <div className="sticky top-6 lg:top-32 space-y-8 lg:space-y-12">
- {isArtisan && request.status === 'open' && !isOwner && (
+ {isArtisan && (request.status === 'open' || request.status === 'pending') && !isOwner && (
  <div className="space-y-12">
  {hasApplied ? (
  <div className="bg-editorial-accent p-8 lg:p-12 text-white shadow-2xl">
@@ -357,7 +357,7 @@ export default function RequestDetails() {
             })()}
  )}
 
- {!user && request?.status === 'open' && (
+ {!user && (request?.status === 'open' || request?.status === 'pending') && (
  <div className="bg-white rounded-xl shadow-sm border border-editorial-border rounded-lg shadow-sm overflow-hidden p-6 lg:p-10">
  <h3 className="text-xl font-semibold text-editorial-fg mb-6 text-center">{t('auto.etes-vous-artisan')}</h3>
  <Link to="/login" className="flex items-center justify-center w-full py-4 lg:py-3 bg-editorial-accent text-white text-sm font-semibold hover:opacity-90 transition-all">
@@ -367,7 +367,7 @@ export default function RequestDetails() {
  </div>
  )}
 
- {isOwner && request.status !== 'open' && (
+ {isOwner && request.status !== 'open' && request.status !== 'pending' && (
  <div className="bg-white rounded-xl shadow-sm border border-editorial-border rounded-lg shadow-sm p-8 lg:p-12">
  <h3 className="text-2xl lg:text-3xl font-semibold text-editorial-fg mb-4 lg:mb-6">{t('auto.mission-initiee')}</h3>
  <p className="text-editorial-muted text-sm leading-relaxed mb-8 lg:mb-10 ">{t('auto.la-phase-operationnelle-a-comm')}</p>
