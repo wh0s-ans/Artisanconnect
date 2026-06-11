@@ -162,10 +162,9 @@ export default function CreateRequest() {
  value={formData.urgency}
  onChange={(e) => setFormData({...formData, urgency: e.target.value})}
  >
- <option value="low" className="bg-white rounded-xl shadow-sm">{t('auto.planification-lointaine')}</option>
- <option value="medium" className="bg-white rounded-xl shadow-sm">{t('auto.standard')}</option>
- <option value="high" className="bg-white rounded-xl shadow-sm">{t('auto.prioritaire')}</option>
- <option value="emergency" className="bg-white rounded-xl shadow-sm">{t('auto.intervention-immediate')}</option>
+ <option value="normal" className="bg-white rounded-xl shadow-sm">{t('auto.standard')}</option>
+ <option value="urgent" className="bg-white rounded-xl shadow-sm">{t('auto.prioritaire')}</option>
+ <option value="very_urgent" className="bg-white rounded-xl shadow-sm">{t('auto.intervention-immediate')}</option>
  </select>
  </div>
  </div>

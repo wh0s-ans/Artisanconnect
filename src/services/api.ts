@@ -66,7 +66,16 @@ async function request<T>(
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err?.detail?.error || err?.detail || `HTTP ${res.status}`);
+    const detail = err?.detail;
+    let message: string;
+    if (Array.isArray(detail)) {
+      message = detail.map((d: any) => d.msg || JSON.stringify(d)).join(', ');
+    } else if (typeof detail === 'object' && detail !== null) {
+      message = detail.error || JSON.stringify(detail);
+    } else {
+      message = detail || `HTTP ${res.status}`;
+    }
+    throw new Error(message);
   }
 
   if (res.status === 204) return undefined as unknown as T;
