@@ -8,6 +8,7 @@ from app.models.user import User
 from app.schemas.proposal import ProposalCreate, ProposalUpdateStatus, ProposalResponse
 from app.services.auth import get_current_user, require_role
 from typing import List
+from datetime import datetime
 
 router = APIRouter(prefix="/proposals", tags=["proposals"])
 
@@ -87,13 +88,46 @@ async def accept_proposal(
         proposal_id=proposal.id,
         client_id=current_user.id,
         artisan_id=proposal.artisan_id,
-        status="in_progress"
+        status="accepted"
     )
     db.add(new_project)
     
     await db.commit()
     await db.refresh(proposal)
     return proposal
+
+
+@router.put("/{id}/confirm")
+async def confirm_proposal(
+    id: str,
+    current_user: User = Depends(require_role(["artisan"])),
+    db: AsyncSession = Depends(get_db)
+):
+    # Artisan confirms that they accept the assigned proposal / start the project
+    result = await db.execute(select(Proposal).where(Proposal.id == id))
+    proposal = result.scalars().first()
+    if not proposal:
+        raise HTTPException(status_code=404, detail={"error": "Proposal not found"})
+
+    if proposal.artisan_id != current_user.id:
+        raise HTTPException(status_code=403, detail={"error": "Not authorized"})
+
+    # Only allow confirm if proposal was accepted by client
+    if proposal.status != "accepted":
+        raise HTTPException(status_code=400, detail={"error": "Proposal not accepted by client"})
+
+    # Find associated project
+    from app.models.project import Project
+    proj_res = await db.execute(select(Project).where(Project.proposal_id == proposal.id))
+    project = proj_res.scalars().first()
+    if not project:
+        raise HTTPException(status_code=404, detail={"error": "Associated project not found"})
+
+    project.status = "in_progress"
+    project.started_at = datetime.utcnow()
+    await db.commit()
+    await db.refresh(project)
+    return project
 
 @router.put("/{id}/refuse", response_model=ProposalResponse)
 async def refuse_proposal(

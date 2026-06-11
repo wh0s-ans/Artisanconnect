@@ -306,6 +306,9 @@ export const proposals = {
   accept: (id: string): Promise<Proposal> =>
     request(`/proposals/${id}/accept`, { method: 'PUT' }),
 
+  confirm: (id: string): Promise<any> =>
+    request(`/proposals/${id}/confirm`, { method: 'PUT' }),
+
   refuse: (id: string, reason?: string): Promise<Proposal> =>
     request(`/proposals/${id}/refuse`, { method: 'PUT', body: JSON.stringify({ status: 'refused', refusal_reason: reason || '' }) }),
 };
