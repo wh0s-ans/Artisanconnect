@@ -54,7 +54,13 @@ async function request<T>(
       const retried = await fetch(`${BASE_URL}${path}`, { ...options, headers });
       if (!retried.ok) {
         const err = await retried.json().catch(() => ({}));
-        throw new Error(err?.detail?.error || err?.detail || `HTTP ${retried.status}`);
+        let errMsg = err?.detail;
+        if (Array.isArray(errMsg)) {
+          errMsg = errMsg.map((d: any) => d.msg || JSON.stringify(d)).join(', ');
+        } else if (typeof errMsg === 'object' && errMsg !== null) {
+          errMsg = errMsg.error || JSON.stringify(errMsg);
+        }
+        throw new Error(errMsg || `HTTP ${retried.status}`);
       }
       return retried.json() as Promise<T>;
     } else {
@@ -66,14 +72,17 @@ async function request<T>(
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    const detail = err?.detail;
+    let detail = err?.detail || err?.error || err;
     let message: string;
+    
     if (Array.isArray(detail)) {
       message = detail.map((d: any) => d.msg || JSON.stringify(d)).join(', ');
     } else if (typeof detail === 'object' && detail !== null) {
-      message = detail.error || JSON.stringify(detail);
+      message = detail.error || detail.message || JSON.stringify(detail);
+    } else if (typeof detail === 'string') {
+      message = detail;
     } else {
-      message = detail || `HTTP ${res.status}`;
+      message = `HTTP ${res.status}`;
     }
     throw new Error(message);
   }
