@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy import and_
 from app.database import get_db
 from app.models.proposal import Proposal
 from app.models.request import Request
@@ -45,8 +46,10 @@ async def get_request_proposals(
         if current_user.role == "artisan":
             result = await db.execute(
                 select(Proposal).where(
-                    Proposal.request_id == request_id, 
-                    Proposal.artisan_id == current_user.id
+                    and_(
+                        Proposal.request_id == request_id, 
+                        Proposal.artisan_id == current_user.id
+                    )
                 )
             )
             return result.scalars().all()
