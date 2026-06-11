@@ -42,6 +42,14 @@ async def get_request_proposals(
         raise HTTPException(status_code=404, detail={"error": "Request not found"})
         
     if request.client_id != current_user.id and current_user.role != "admin":
+        if current_user.role == "artisan":
+            result = await db.execute(
+                select(Proposal).where(
+                    Proposal.request_id == request_id, 
+                    Proposal.artisan_id == current_user.id
+                )
+            )
+            return result.scalars().all()
         raise HTTPException(status_code=403, detail={"error": "Not authorized"})
         
     result = await db.execute(select(Proposal).where(Proposal.request_id == request_id))
