@@ -18,6 +18,21 @@ async def create_review(
 ):
     new_review = Review(**review_data.model_dump(), reviewer_id=current_user.id)
     db.add(new_review)
+    
+    # Update the user's overall rating and review_count
+    user_res = await db.execute(select(User).where(User.id == review_data.reviewee_id))
+    reviewee = user_res.scalars().first()
+    if reviewee:
+        # Get all current reviews
+        reviews_res = await db.execute(select(Review).where(Review.reviewee_id == review_data.reviewee_id))
+        all_reviews = reviews_res.scalars().all()
+        # Add the new review manually to the list for calculation (since it's not committed yet)
+        all_reviews.append(new_review)
+        
+        reviewee.review_count = len(all_reviews)
+        total_rating = sum([(r.punctuality + r.quality + r.cleanliness + r.communication) / 4 for r in all_reviews])
+        reviewee.rating = round(total_rating / len(all_reviews), 1)
+
     await db.commit()
     await db.refresh(new_review)
     return new_review

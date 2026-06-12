@@ -5,28 +5,27 @@ import { Link } from 'react-router-dom';
 import { Folder, Clock, MapPin, Tag, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
-import { requests as requestsApi } from '../services/api';
+import { projects as projectsApi } from '../services/api';
 import { useTranslation } from "react-i18next";
 
 export default function MyProjects() {
     const { t } = useTranslation();
  const { user, userData } = useAuth();
- const [filter, setFilter] = useState('En cours');
+ const [filter, setFilter] = useState('Tous');
   const { data: rawProjects = [], isLoading: loading } = useQuery({
     queryKey: ['myProjects'],
-    queryFn: () => requestsApi.mine(),
+    queryFn: () => projectsApi.mine(),
     enabled: !!user,
   });
 
   const projects = useMemo(() => {
     if (!user) return [];
-    return user.role === 'client' 
-      ? rawProjects.filter((r: any) => ['in_progress', 'completed', 'canceled'].includes(r.status))
-      : rawProjects;
+    return rawProjects;
   }, [rawProjects, user]);
 
  const getStatusLabel = (status: string) => {
    switch (status) {
+     case 'accepted': return 'Accepté';
      case 'in_progress': return 'En cours';
      case 'completed': return 'Terminé';
      case 'canceled': return 'Annulé';
@@ -52,7 +51,7 @@ export default function MyProjects() {
  </div>
 
  <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
- {['Tous', 'En cours', 'Terminé', 'Annulé'].map(f => (
+ {['Tous', 'Accepté', 'En cours', 'Terminé', 'Annulé'].map(f => (
  <button
  key={f}
  onClick={() => setFilter(f)}
@@ -127,15 +126,10 @@ export default function MyProjects() {
  </div>
  </div>
  
- {project.status === 'in_progress' && (
- <div className="mb-6">
- <div className="flex justify-between text-sm font-bold text-editorial-muted mb-2">
- <span>{t('auto.avancement')}</span>
- <span>{project.progress || 10}%</span>
- </div>
- <div className="w-full bg-secondary/20 h-1.5 overflow-hidden">
- <div className="bg-editorial-accent hover:bg-editorial-accent/90 h-full" style={{ width: `${project.progress || 10}%` }}></div>
- </div>
+ {project.status === 'in_progress' && project.delay_days && (
+ <div className="mb-6 text-sm text-editorial-muted flex items-center gap-2">
+ <Clock className="h-3.5 w-3.5" />
+ Délai estimé : {project.delay_days} jour{project.delay_days > 1 ? 's' : ''}
  </div>
  )}
 

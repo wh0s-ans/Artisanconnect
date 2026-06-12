@@ -6,21 +6,23 @@
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 // ---- Token storage helpers ----
+// NOTE: Uses sessionStorage (not localStorage) so each browser tab has its own
+// independent session — allows testing as client + artisan simultaneously.
 export const TokenStorage = {
-  getAccess: (): string | null => localStorage.getItem('access_token'),
-  getRefresh: (): string | null => localStorage.getItem('refresh_token'),
+  getAccess: (): string | null => sessionStorage.getItem('access_token'),
+  getRefresh: (): string | null => sessionStorage.getItem('refresh_token'),
   set: (access: string, refresh: string) => {
-    localStorage.setItem('access_token', access);
-    localStorage.setItem('refresh_token', refresh);
+    sessionStorage.setItem('access_token', access);
+    sessionStorage.setItem('refresh_token', refresh);
   },
   clear: () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user_data');
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('refresh_token');
+    sessionStorage.removeItem('user_data');
   },
-  setUser: (user: any) => localStorage.setItem('user_data', JSON.stringify(user)),
+  setUser: (user: any) => sessionStorage.setItem('user_data', JSON.stringify(user)),
   getUser: (): any | null => {
-    const raw = localStorage.getItem('user_data');
+    const raw = sessionStorage.getItem('user_data');
     return raw ? JSON.parse(raw) : null;
   },
 };
@@ -361,8 +363,12 @@ export interface Review {
   project_id: string;
   reviewer_id: string;
   reviewee_id: string;
-  rating: number;
+  punctuality: number;
+  quality: number;
+  cleanliness: number;
+  communication: number;
   comment?: string;
+  photo_url?: string;
   reply?: string;
   is_public: boolean;
   created_at: string;
@@ -373,7 +379,7 @@ export const reviews = {
     request(`/reviews/user/${userId}`, {}, false),
   forProject: (projectId: string): Promise<Review[]> =>
     request(`/reviews/project/${projectId}`),
-  create: (data: { project_id: string; reviewee_id: string; rating: number; comment?: string; is_public?: boolean }): Promise<Review> =>
+  create: (data: { project_id: string; reviewee_id: string; punctuality: number; quality: number; cleanliness: number; communication: number; comment?: string; is_public?: boolean }): Promise<Review> =>
     request('/reviews', { method: 'POST', body: JSON.stringify(data) }),
   reply: (id: string, reply: string): Promise<Review> =>
     request(`/reviews/${id}/reply?reply=${encodeURIComponent(reply)}`, { method: 'PUT' }),

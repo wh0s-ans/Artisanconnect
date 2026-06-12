@@ -276,6 +276,30 @@ export default function RequestDetails() {
  
                                               {t('auto.votre-etude-a-ete-transmise-au')}
                                               </p>
+ {(() => {
+   const myAccepted = proposals.find(p => p.artisanId === user?.id && p.status === 'accepted');
+   if (myAccepted) {
+     return (
+       <div className="mt-6">
+         <button
+           onClick={async () => {
+             try {
+               const project = await proposalsApi.confirm(myAccepted.id as string);
+               const newChat = await chatApi.start(project.client_id, id);
+               navigate(`/projects/${project.id}`);
+             } catch (err) {
+               console.error(err);
+             }
+           }}
+           className="w-full py-4 lg:py-3 bg-white text-editorial-accent text-sm font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-4"
+         >
+           {t('auto.confirmer-la-mission')}
+         </button>
+       </div>
+     );
+   }
+   return null;
+ })()}
  </div>
  ) : (
  <div className="bg-white rounded-xl shadow-sm border border-editorial-border rounded-lg shadow-sm overflow-hidden">
@@ -329,32 +353,6 @@ export default function RequestDetails() {
  </div>
  )}
  </div>
-            {/* Artisan confirmation CTA when client selected this artisan */}
-            {hasApplied && (() => {
-              const myAccepted = proposals.find(p => p.artisanId === user?.id && p.status === 'accepted');
-              if (myAccepted) {
-                return (
-                  <div className="mt-6">
-                    <button
-                      onClick={async () => {
-                        try {
-                          const project = await proposalsApi.confirm(myAccepted.id as string);
-                          // start chat with client and navigate to project
-                          const newChat = await chatApi.start(project.client_id, id);
-                          navigate(`/projects/${project.id}`);
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
-                      className="w-full py-4 lg:py-3 bg-editorial-accent hover:bg-editorial-accent/90 text-white text-sm font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-4"
-                    >
-                      {t('auto.confirmer-la-mission')}
-                    </button>
-                  </div>
-                );
-              }
-              return null;
-            })()}
  )}
 
  {!user && (request?.status === 'open' || request?.status === 'pending') && (

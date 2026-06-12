@@ -27,6 +27,37 @@ async def start_chat(
     current_user: User = Depends(get_current_user), 
     db: AsyncSession = Depends(get_db)
 ):
+    from sqlalchemy import cast, String, and_
+
+    # First: look for an existing chat between these two participants for the same request
+    if chat_data.request_id:
+        result = await db.execute(
+            select(Chat).where(
+                and_(
+                    Chat.request_id == chat_data.request_id,
+                    cast(Chat.participants, String).like(f'%{current_user.id}%'),
+                    cast(Chat.participants, String).like(f'%{chat_data.participant_id}%'),
+                )
+            )
+        )
+        existing = result.scalars().first()
+        if existing:
+            return existing
+
+    # Fallback: look for any existing chat between these two users (regardless of request)
+    result = await db.execute(
+        select(Chat).where(
+            and_(
+                cast(Chat.participants, String).like(f'%{current_user.id}%'),
+                cast(Chat.participants, String).like(f'%{chat_data.participant_id}%'),
+            )
+        )
+    )
+    existing = result.scalars().first()
+    if existing:
+        return existing
+
+    # No existing chat — create a new one
     participants = [current_user.id, chat_data.participant_id]
     new_chat = Chat(participants=participants, request_id=chat_data.request_id)
     db.add(new_chat)

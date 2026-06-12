@@ -27,8 +27,16 @@ export default function MyReviews() {
    loadReviews();
  }, [user]);
 
+ const getReviewAverage = (review: any) => {
+   const p = review.punctuality || review.rating || 5;
+   const q = review.quality || review.rating || 5;
+   const c1 = review.cleanliness || review.rating || 5;
+   const c2 = review.communication || review.rating || 5;
+   return (p + q + c1 + c2) / 4;
+ };
+
  const avgRating = reviews.length > 0 
-   ? (reviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length).toFixed(1) 
+   ? (reviews.reduce((acc, curr) => acc + getReviewAverage(curr), 0) / reviews.length).toFixed(1) 
    : 0;
 
  return (
@@ -86,13 +94,13 @@ export default function MyReviews() {
  <div>
  <h3 className="font-medium text-lg">{review.clientName || 'Client anonyme'}</h3>
  <p className="text-xs text-editorial-muted font-bold mt-1">
- {review.created_at ? new Date(review.created_at).toLocaleDateString() : 'Avis récent'} • {review.projectTitle || 'Projet'}
+ {review.created_at ? new Date(review.created_at).toLocaleDateString() : 'Avis récent'}
  </p>
  </div>
  </div>
  <div className="flex gap-1 shrink-0">
  {[1, 2, 3, 4, 5].map(star => (
- <Star key={star} className={cn("h-4 w-4", star <= review.rating ? "fill-editorial-accent text-editorial-accent" : "fill-transparent text-editorial-border")} />
+ <Star key={star} className={cn("h-4 w-4", star <= getReviewAverage(review) ? "fill-editorial-accent text-editorial-accent" : "fill-transparent text-editorial-border")} />
  ))}
  </div>
  </div>

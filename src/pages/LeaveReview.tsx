@@ -1,21 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Star, CheckCircle, ArrowLeft } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useTranslation } from "react-i18next";
+import { projects as projectsApi, reviews as reviewsApi } from '../services/api';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function LeaveReview() {
     const { t } = useTranslation();
  const { id } = useParams();
  const navigate = useNavigate();
+ const { user } = useAuth();
  const [rating, setRating] = useState(0);
  const [hoverRating, setHoverRating] = useState(0);
+ const [comment, setComment] = useState('');
  const [submitted, setSubmitted] = useState(false);
+ const [submitting, setSubmitting] = useState(false);
+ const [project, setProject] = useState<any>(null);
 
- const handleSubmit = (e: React.FormEvent) => {
- e.preventDefault();
- setSubmitted(true);
- setTimeout(() => navigate('/dashboard'), 2000);
+ useEffect(() => {
+   if (!id) return;
+   projectsApi.get(id).then(setProject).catch(console.error);
+ }, [id]);
+
+ const handleSubmit = async (e: React.FormEvent) => {
+   e.preventDefault();
+   if (!id || !project || !user) {
+     alert("Données manquantes (projet ou utilisateur non chargé).");
+     return;
+   }
+   setSubmitting(true);
+   
+   try {
+     const isClient = user.id === project.client_id || user.role === 'client';
+     const reviewee_id = isClient ? project.artisan_id : project.client_id;
+     await reviewsApi.create({
+       project_id: id,
+       reviewee_id,
+       punctuality: rating,
+       quality: rating,
+       cleanliness: rating,
+       communication: rating,
+       comment
+     });
+     setSubmitted(true);
+     setTimeout(() => navigate('/dashboard'), 2000);
+   } catch (err: any) {
+     console.error("Erreur lors de la publication de l'avis:", err);
+     alert("Erreur lors de la publication : " + (err.message || JSON.stringify(err)));
+   } finally {
+     setSubmitting(false);
+   }
  };
 
  if (submitted) {
@@ -30,6 +65,8 @@ export default function LeaveReview() {
  );
  }
 
+ const isClient = user?.id === project?.client_id || user?.role === 'client';
+
  return (
  <div className="min-h-screen bg-editorial-bg py-8 py-8">
  <div className="max-w-2xl mx-auto px-4">
@@ -42,8 +79,7 @@ export default function LeaveReview() {
 
  <div className="mb-12 text-center">
  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-semibold text-editorial-fg mb-4">
- 
-                      {t('auto.evaluez-lartisan')}
+                      {isClient ? t('auto.evaluez-lartisan') : "Évaluez le client"}
                       </h1>
  <p className="text-editorial-muted">{t('auto.comment-sest-passe-votre-proje')}{id?.substring(0,6)} ?</p>
  </div>
@@ -95,6 +131,8 @@ export default function LeaveReview() {
  <textarea 
  required
  rows={4}
+ value={comment}
+ onChange={(e) => setComment(e.target.value)}
  className="w-full bg-white border border-editorial-border rounded-lg p-4 text-editorial-fg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-editorial-accent transition-colors text-sm resize-none"
  placeholder={t('auto.decrivez-votre-experience-avec')}
  />
@@ -102,11 +140,10 @@ export default function LeaveReview() {
 
  <button 
  type="submit"
- disabled={rating === 0}
+ disabled={rating === 0 || submitting}
  className="w-full py-4 bg-editorial-accent hover:bg-editorial-accent/90 text-white font-medium rounded-md text-base hover:opacity-90 transition-all disabled:opacity-50"
  >
- 
-                      {t('auto.publier-mon-avis')}
+                      {submitting ? "Publication en cours..." : t('auto.publier-mon-avis')}
                       </button>
  </form>
  </div>
